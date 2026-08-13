@@ -162,12 +162,12 @@ body {
 
 
 .hero-bg {
-  background-image: url("/__l5e/assets-v1/d8c568f1-0212-47d2-a2fa-fb96458f520a/scene-wide.png");
+  background-image: url("/__l5e/assets-v1/7b2772e3-17bf-41c2-83c5-7fc353d2cc76/scene-wide-v2.png");
 }
 
 @media (orientation: portrait) {
   .hero-bg {
-    background-image: url("/__l5e/assets-v1/7a491699-4851-4410-80d5-d657e59052ae/scene-tall.png");
+    background-image: url("/__l5e/assets-v1/9435e9eb-5ca6-436f-9c48-92bc48c2831e/scene-tall-v2.png");
   }
 }
 
