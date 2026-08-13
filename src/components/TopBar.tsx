@@ -28,14 +28,20 @@ export function TopBar() {
           target="_blank"
           rel="noreferrer noopener"
           aria-label="Open the playlist on YouTube Music"
-          className="group flex items-center gap-2 rounded-full bg-white/95 py-1.5 pl-2 pr-3 text-neutral-900 shadow-[0_8px_24px_-10px_rgba(0,0,0,0.8)] transition-colors hover:bg-white"
+          className="group flex items-center gap-2 rounded-full px-1 py-1 text-white transition-opacity hover:opacity-80"
         >
-          <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
-            <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
-            <path d="M9.8 8.2 16 12l-6.2 3.8V8.2Z" fill="currentColor" />
+          <svg viewBox="0 0 176 176" className="size-6 shrink-0" aria-hidden="true">
+            <circle fill="#FF0000" cx="88" cy="88" r="88" />
+            <path
+              fill="#FFFFFF"
+              d="M88,46c23.1,0,42,18.8,42,42s-18.8,42-42,42s-42-18.8-42-42S64.9,46,88,46 M88,42c-25.4,0-46,20.6-46,46s20.6,46,46,46s46-20.6,46-46S113.4,42,88,42L88,42z"
+            />
+            <polygon fill="#FFFFFF" points="72,111 111,87 72,65" />
           </svg>
-          <span className="text-[13px] font-semibold tracking-tight">YT Music</span>
-          <svg viewBox="0 0 12 12" className="size-3 opacity-70" aria-hidden="true">
+          <span className="hidden text-[13px] font-semibold tracking-tight sm:inline">
+            YT Music
+          </span>
+          <svg viewBox="0 0 12 12" className="hidden size-3 opacity-70 sm:block" aria-hidden="true">
             <path
               d="M3 9 9 3M4.2 3H9v4.8"
               fill="none"
