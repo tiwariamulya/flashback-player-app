@@ -66,7 +66,7 @@ function Index() {
 
 
       <div className="safe-b safe-l safe-r fixed z-20 flex justify-center">
-        <div className="mx-auto flex w-full max-w-xl justify-center px-4">
+        <div className="mx-auto flex w-full max-w-3xl justify-center px-4">
           <Player />
         </div>
       </div>
