@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Nepali Nostalgia Radio — songs on loop" },
       {
         property: "og:description",
-        content: "Hand-picked nostalgia playlists, playing over a warm evening street scene.",
+        content: "A one-page nostalgia radio: dusty evening streets, a spinning record and hand-picked playlists that keep playing.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
