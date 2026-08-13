@@ -77,18 +77,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Nepali Nostalgia Radio — songs on loop" },
-      { name: "description", content: "A one-page nostalgia radio: dusty evening streets, a spinning record and hand-picked playlists that keep playing." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Nepali Nostalgia Radio — songs on loop" },
-      { property: "og:description", content: "A one-page nostalgia radio: dusty evening streets, a spinning record and hand-picked playlists that keep playing." },
+      { title: "Driver Dai" },
+      { name: "description", content: "Driver Dai — a nonstop Nepali music radio that shuffles hand-picked songs the moment you arrive." },
+      { name: "author", content: "Driver Dai" },
+      { property: "og:site_name", content: "Driver Dai" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Nepali Nostalgia Radio — songs on loop" },
-      { name: "twitter:description", content: "A one-page nostalgia radio: dusty evening streets, a spinning record and hand-picked playlists that keep playing." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9574e531dd3b6faeffa39e28af69ec5e/id-preview-6db023a5--3ecba1c9-2a2b-4f56-b771-c92e0f27266a.lovable.app-1786630124800.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9574e531dd3b6faeffa39e28af69ec5e/id-preview-6db023a5--3ecba1c9-2a2b-4f56-b771-c92e0f27266a.lovable.app-1786630124800.png" },
     ],
     links: [
       {
@@ -103,7 +97,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
-
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Driver Dai",
+          url: "https://driverdai.lovable.app/",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,

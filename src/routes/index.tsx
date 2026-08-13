@@ -3,25 +3,45 @@ import { TopBar } from "@/components/TopBar";
 import { Player } from "@/components/player/Player";
 import logoAsset from "@/assets/logo.webp.asset.json";
 
+const SITE_URL = "https://driverdai.lovable.app/";
+const OG_IMAGE =
+  "https://driverdai.lovable.app/__l5e/assets-v1/4a6c2553-7e4a-46e2-8d62-8ecb72a19022/driver-dai-og.png";
+const TITLE = "Driver Dai — Nonstop Nepali Music Radio";
+const DESCRIPTION =
+  "Driver Dai plays nonstop Nepali songs — hand-picked classics and road-trip favourites, shuffled fresh every visit. Press play, no signup.";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Nepali Nostalgia Radio — songs on loop" },
-      {
-        name: "description",
-        content:
-          "A one-page nostalgia radio: dusty evening streets, a spinning record and hand-picked playlists that keep playing.",
-      },
-      { property: "og:title", content: "Nepali Nostalgia Radio — songs on loop" },
-      {
-        property: "og:description",
-        content: "A one-page nostalgia radio: dusty evening streets, a spinning record and hand-picked playlists that keep playing.",
-      },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "RadioChannel",
+          name: "Driver Dai",
+          url: SITE_URL,
+          image: OG_IMAGE,
+          description: DESCRIPTION,
+          genre: "Nepali music",
+        }),
+      },
     ],
     links: [
+      { rel: "canonical", href: SITE_URL },
       { rel: "preload", as: "image", href: logoAsset.url, fetchPriority: "high" },
       {
         rel: "preload",
