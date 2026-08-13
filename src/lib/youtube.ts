@@ -2,8 +2,8 @@
 export type YTPlayer = {
   playVideo: () => void;
   pauseVideo: () => void;
-  loadVideoById: (id: string) => void;
-  cueVideoById: (id: string) => void;
+  loadVideoById: (id: string | { videoId: string; startSeconds?: number }) => void;
+  cueVideoById: (id: string | { videoId: string; startSeconds?: number }) => void;
   seekTo: (seconds: number, allowSeekAhead: boolean) => void;
   getCurrentTime: () => number;
   getDuration: () => number;
