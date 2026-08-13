@@ -183,18 +183,20 @@ export function Player() {
         }}
       />
 
-      {/* The YouTube player stays visible: no background playback, ads stay skippable. */}
-      <div className={`w-full overflow-hidden rounded-2xl p-2 ${GLASS}`}>
-        <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black/60">
-          <div ref={hostRef} className="size-full" />
-          {!hasVideo && (
-            <div className="absolute inset-0 flex items-center justify-center px-6 text-center text-[12px] leading-relaxed text-white/70">
-              No videoId yet — add one you own or that comes from the rights holder's
-              own channel in <code className="mx-1 text-white/90">src/lib/tracks.ts</code>.
-            </div>
-          )}
-        </div>
+      {/* Audio-only: the YouTube iframe is mounted off-screen so only sound plays. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 -z-50 h-[1px] w-[1px] overflow-hidden opacity-0"
+      >
+        <div ref={hostRef} className="size-full" />
       </div>
+      {!hasVideo && (
+        <p className="px-6 text-center text-[12px] leading-relaxed text-white/70">
+          No videoId yet — add one in{" "}
+          <code className="text-white/90">src/lib/tracks.ts</code>.
+        </p>
+      )}
+
 
       <DesktopPlayer
         track={track}
