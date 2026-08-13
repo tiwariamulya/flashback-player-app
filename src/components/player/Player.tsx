@@ -193,7 +193,23 @@ export function Player() {
       }
 
       const action = resolveSkip(time, trackRef.current, d);
-      if (!action) return;
+
+      /* no explicit timing hit — fall back to automatic heuristics */
+      if (!action) {
+        if (inSilentTail(time, d, trackRef.current.endAt)) {
+          advanceOnceRef.current();
+          return;
+        }
+        const nudge = resolveStall(time, Date.now(), stallRef.current);
+        if (nudge !== null && d > 0 && nudge < d - 1) {
+          pendingSeekRef.current = nudge;
+          lastSeekAtRef.current = Date.now();
+          setCurrent(nudge);
+          p.seekTo(nudge, true);
+        }
+        return;
+      }
+
       if (action.type === "end") {
         advanceOnceRef.current();
         return;
