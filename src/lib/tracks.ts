@@ -27,9 +27,9 @@ export type Playlist = {
  */
 export const playlists: Playlist[] = [
   {
-    id: "sanjh",
-    name: "Sanjh",
-    blurb: "Evening light, slow walk home",
+    id: "radio",
+    name: "Radio",
+    blurb: "On loop",
     tracks: [
       { id: "s1", title: "Timro Pratiksa", artist: "Shallum Lama", film: "Single", year: 2022, duration: 243, videoId: "0_sZlZn8aLY" },
       { id: "s2", title: "Je Chhau Timi", artist: "Swoopna Suman × Samir Shrestha", film: "Single", year: 2021, duration: 241, videoId: "_Tk9_kPpO1U" },
@@ -38,13 +38,6 @@ export const playlists: Playlist[] = [
       { id: "s5", title: "Parkha Na", artist: "Sushant KC ft. Jhuma Limbu", film: "Single", year: 2021, duration: 242, videoId: "qQujA8u1zGI" },
       { id: "s6", title: "Jhyal Bata", artist: "Sushant KC", film: "Single", year: 2021, duration: 228, videoId: "6-a_wfFF_Xg" },
       { id: "s7", title: "Thamana Haat", artist: "Samir Shrestha", film: "Single", year: 2021, duration: 233, videoId: "6Lw5FdAsAfE" },
-    ],
-  },
-  {
-    id: "barsa",
-    name: "Barsa",
-    blurb: "Rain on a tin roof",
-    tracks: [
       { id: "b1", title: "Kasari / कसरी", artist: "Yabesh Thapa", film: "Single", year: 2021, duration: 252, videoId: "vnHTrxV7TMc" },
       { id: "b2", title: "Aakhale", artist: "Yabesh Thapa × TWK", film: "Single", year: 2022, duration: 174, videoId: "mF8RkRT5Nrs" },
       { id: "b3", title: "Alapatra / अलपत्र", artist: "Yabesh Thapa", film: "Single", year: 2020, duration: 379, videoId: "-0h0NOBfk_k" },
@@ -53,13 +46,6 @@ export const playlists: Playlist[] = [
       { id: "b6", title: "Maya", artist: "Ayush Gauchan", film: "Single", year: 2022, duration: 183, videoId: "-eSj6Y_jdr8" },
       { id: "b7", title: "Khusi", artist: "The Dreamcatchers", film: "Single", year: 2021, duration: 238, videoId: "-Pr42D1e1GI" },
       { id: "b8", title: "Sparsha Sangeet", artist: "Purna Rai & Dajubhaiharu", film: "Single", year: 2021, duration: 464, videoId: "K-w04FG6eyI" },
-    ],
-  },
-  {
-    id: "rati",
-    name: "Rati",
-    blurb: "After the last bus",
-    tracks: [
       { id: "r1", title: "Yatra", artist: "VTEN", film: "Single", year: 2020, duration: 382, videoId: "7RN8gYxHW54" },
       { id: "r2", title: "Batash", artist: "Shashwot Khadka", film: "Single", year: 2022, duration: 180, videoId: "AtoZw7o2kRo" },
       { id: "r3", title: "Timi Nacha Na", artist: "Wangden Sherpa", film: "Single", year: 2022, duration: 181, videoId: "wAHg_eK9eW4" },
