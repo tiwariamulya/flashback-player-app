@@ -283,7 +283,7 @@ export function Player() {
   }, []);
 
   return (
-    <div className="flex w-full max-w-xl flex-col items-center gap-3">
+    <div className="flex w-full max-w-3xl flex-col items-center gap-3">
 
       {/* Audio-only: the YouTube iframe is mounted off-screen so only sound plays. */}
       <div
