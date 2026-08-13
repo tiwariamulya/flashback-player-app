@@ -22,8 +22,7 @@ export type Playlist = {
 
 /**
  * Adding a song is a one-line change: drop another object into a tracks array.
- * Source: "Nepali songs" playlist (PLyTzwitHMGXAyxnaw27ZsY7hx0o4x_ZFA),
- * filtered down to artist / label channel uploads.
+ * Source: "Driver Dai" playlist (PLS2fUsNYw8KQ).
  */
 export const playlists: Playlist[] = [
   {
@@ -31,32 +30,33 @@ export const playlists: Playlist[] = [
     name: "Radio",
     blurb: "On loop",
     tracks: [
-      { id: "s1", title: "Timro Pratiksa", artist: "Shallum Lama", film: "Single", year: 2022, duration: 243, videoId: "0_sZlZn8aLY" },
-      { id: "s2", title: "Je Chhau Timi", artist: "Swoopna Suman × Samir Shrestha", film: "Single", year: 2021, duration: 241, videoId: "_Tk9_kPpO1U" },
-      { id: "s3", title: "Sasto Mutu", artist: "Sajjan Raj Vaidya", film: "Single", year: 2020, duration: 303, videoId: "XcEC2q4CotY" },
-      { id: "s4", title: "Risaune Bhaye", artist: "Sushant KC", film: "Single", year: 2020, duration: 200, videoId: "cNBmzxE6Jf0" },
-      { id: "s5", title: "Parkha Na", artist: "Sushant KC ft. Jhuma Limbu", film: "Single", year: 2021, duration: 242, videoId: "qQujA8u1zGI" },
-      { id: "s6", title: "Jhyal Bata", artist: "Sushant KC", film: "Single", year: 2021, duration: 228, videoId: "6-a_wfFF_Xg" },
-      { id: "s7", title: "Thamana Haat", artist: "Samir Shrestha", film: "Single", year: 2021, duration: 233, videoId: "6Lw5FdAsAfE" },
-      { id: "b1", title: "Kasari / कसरी", artist: "Yabesh Thapa", film: "Single", year: 2021, duration: 252, videoId: "vnHTrxV7TMc" },
-      { id: "b2", title: "Aakhale", artist: "Yabesh Thapa × TWK", film: "Single", year: 2022, duration: 174, videoId: "mF8RkRT5Nrs" },
-      { id: "b3", title: "Alapatra / अलपत्र", artist: "Yabesh Thapa", film: "Single", year: 2020, duration: 379, videoId: "-0h0NOBfk_k" },
-      { id: "b4", title: "Rahar / रहर", artist: "Oshin Karki", film: "Single", year: 2021, duration: 251, videoId: "ta-uwUBYUMs" },
-      { id: "b5", title: "Maya", artist: "Ashutosh KC", film: "Single", year: 2021, duration: 283, videoId: "kEbcHhNsRoU" },
-      { id: "b6", title: "Maya", artist: "Ayush Gauchan", film: "Single", year: 2022, duration: 183, videoId: "-eSj6Y_jdr8" },
-      { id: "b7", title: "Khusi", artist: "The Dreamcatchers", film: "Single", year: 2021, duration: 238, videoId: "-Pr42D1e1GI" },
-      { id: "b8", title: "Sparsha Sangeet", artist: "Purna Rai & Dajubhaiharu", film: "Single", year: 2021, duration: 464, videoId: "K-w04FG6eyI" },
-      { id: "r1", title: "Yatra", artist: "VTEN", film: "Single", year: 2020, duration: 382, videoId: "7RN8gYxHW54" },
-      { id: "r2", title: "Batash", artist: "Shashwot Khadka", film: "Single", year: 2022, duration: 180, videoId: "AtoZw7o2kRo" },
-      { id: "r3", title: "Timi Nacha Na", artist: "Wangden Sherpa", film: "Single", year: 2022, duration: 181, videoId: "wAHg_eK9eW4" },
-      { id: "r4", title: "Ko Haw Timi", artist: "Prashant Ezekiel Rai", film: "Single", year: 2022, duration: 211, videoId: "9CjhJI4XFhA" },
-      { id: "r5", title: "Timi Sangai", artist: "Apurva Tamang", film: "Single", year: 2022, duration: 147, videoId: "Qaj2TceZGGU" },
-      { id: "r6", title: "Tara Bolna Mann Lagcha (Khola Paari)", artist: "Aayush Yonjan", film: "AV Records", year: 2022, duration: 194, videoId: "p6HyT_GXg28" },
-      { id: "r7", title: "Ek Safar", artist: "Sono Lem", film: "Single", year: 2022, duration: 181, videoId: "HO_JOsx2tDo" },
-      { id: "r8", title: "India", artist: "ST MAN ft. Yung 22 & Big Norzza", film: "Single", year: 2021, duration: 276, videoId: "oM6kM_J9xgE" },
+      { id: "t1", title: "Masterai Banera", artist: "Trisana Music", film: "DJ Cover", year: 2026, duration: 596, videoId: "yJJH_wDo7RI" },
+      { id: "t2", title: "Driver Ma Mailo", artist: "Badal Thapa", film: "Single", year: 2010, duration: 263, videoId: "T88PAIFtVIk" },
+      { id: "t3", title: "Sailo Ma Charghare", artist: "Bishwo Dong", film: "Single", year: 2025, duration: 382, videoId: "xIZISD1JqoQ" },
+      { id: "t4", title: "Bokejhar (Mero Deuta Bataima Bhetiyo)", artist: "Basanta Thapa & Bishnu Majhi", film: "Lok Dohori", year: 2019, duration: 641, videoId: "0N8F4WKMA84" },
+      { id: "t5", title: "Pidalu", artist: "Tejash Regmi & Bishnu Majhi", film: "Lok Dohori", year: 2018, duration: 611, videoId: "Plrb7AqN5Z4" },
+      { id: "t6", title: "Jaljala", artist: "Kulendra B.K. & Sunita Budha", film: "Lok Dohori", year: 2021, duration: 640, videoId: "sJngbc5_cz0" },
+      { id: "t7", title: "Myagdi Ruma Le", artist: "7Seas Cinema", film: "Roll No. 1", year: 2026, duration: 275, videoId: "UrX1j9zd-yc" },
+      { id: "t8", title: "Chainejo Jindaganima", artist: "Sujan Chapagain & Salina B.K.", film: "Unko Sweater", year: 2025, duration: 262, videoId: "-g4HhCkeU8g" },
+      { id: "t9", title: "Khairenima Gate", artist: "Bhagwan Bhandari", film: "Single", year: 2025, duration: 315, videoId: "eadBdGLAW5U" },
+      { id: "t10", title: "Lamjunge Dadaima Hawa Sarara (Blues)", artist: "AI Core Music", film: "Cover", year: 2025, duration: 318, videoId: "XeNmYNQYvBY" },
+      { id: "t11", title: "Sora Barse Umerai Ma (Cover)", artist: "AI Core Music", film: "Cover", year: 2025, duration: 197, videoId: "GuP3PWNjww4" },
+      { id: "t12", title: "Ma Ta Dhale Dhale", artist: "Shanta Rani Pariyar", film: "Teej Song", year: 2025, duration: 504, videoId: "bE1slS_aI3g" },
+      { id: "t13", title: "Aunty Lover", artist: "Ashish Aviral & Kala Lamsal", film: "Single", year: 2025, duration: 589, videoId: "R1OhIJQdHJ0" },
+      { id: "t14", title: "Launani Yasto Bhaye Ma Kina", artist: "Suresh Anjan", film: "Lok Dohori", year: 2026, duration: 918, videoId: "bFr8Qs_A010" },
+      { id: "t15", title: "Pir Nagara Manjari (Remix)", artist: "LAXMA", film: "Old Is Gold Remix", year: 2026, duration: 383, videoId: "AUbrv8WVJhw" },
+      { id: "t16", title: "Pokhara Prithivi Chowkaima", artist: "Shanta Rani Pariyar & Chhabi Raj Sunar", film: "Lok Dohori", year: 2025, duration: 730, videoId: "EsTt9jy_mG8" },
+      { id: "t17", title: "Nyauli Banaima", artist: "OSR Digital", film: "Baristha Balaram", year: 2025, duration: 282, videoId: "jWOsgaebblE" },
+      { id: "t18", title: "Manung Kotaima", artist: "Badri Sapkota & Shanti Shree Pariyar", film: "Lok Dohori", year: 2025, duration: 684, videoId: "TscgMApt6so" },
+      { id: "t19", title: "Kalo Keshma Reli Mai", artist: "AI Nepali Blues", film: "AI Cover", year: 2025, duration: 231, videoId: "BpQCRIhLlIQ" },
+      { id: "t20", title: "Putali", artist: "Ashish Aviral & Eleena Chauhan", film: "Single", year: 2025, duration: 312, videoId: "sVs_Ifd9yOI" },
+      { id: "t21", title: "Timro Nai Maya Lagdacha Saili", artist: "Nepali Blues Dhun", film: "Cover", year: 2025, duration: 333, videoId: "xDS7hQ57wXw" },
+      { id: "t22", title: "Gandaki", artist: "Diplov Khati & Devi Gharti", film: "Lok Dohori", year: 2025, duration: 811, videoId: "9_POegS0QH4" },
+      { id: "t23", title: "Mauri Tyasai Ghumdaina", artist: "Asian Beat Vibes", film: "AI Remix Cover", year: 2026, duration: 283, videoId: "s9vyP31kuuI" },
     ],
   },
 ];
+
 
 export const formatTime = (s: number) => {
   if (!Number.isFinite(s) || s < 0) s = 0;
