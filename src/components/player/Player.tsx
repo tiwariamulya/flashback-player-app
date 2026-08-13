@@ -54,9 +54,9 @@ function MobilePlayer(props: {
 }) {
   const { track, playing, current, duration } = props;
   return (
-    <div className={`flex w-full flex-col gap-2 rounded-[26px] p-4 sm:hidden ${GLASS}`}>
+    <div className={`flex w-full flex-col gap-1 rounded-[22px] px-3 py-2.5 sm:hidden ${GLASS}`}>
       <div className="flex items-center gap-3">
-        <Vinyl size={64} playing={playing} videoId={track.videoId} title={track.title} />
+        <Vinyl size={54} playing={playing} videoId={track.videoId} title={track.title} />
         <Meta track={track} compact />
       </div>
       <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
@@ -67,10 +67,10 @@ function MobilePlayer(props: {
           onPrev={props.onPrev}
           onNext={props.onNext}
           onToggle={props.onToggle}
-          playSize={52}
-          hit={44}
+          playSize={44}
+          hit={38}
         />
-        <span className="w-14" />
+        <span className="w-12" />
       </div>
     </div>
   );
