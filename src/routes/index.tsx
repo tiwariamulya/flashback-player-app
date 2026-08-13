@@ -60,7 +60,7 @@ function Index() {
           height={362}
           fetchPriority="high"
           decoding="async"
-          className="h-24 w-auto max-w-[80vw] object-contain drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] sm:h-32"
+          className="h-28 w-auto max-w-[80vw] object-contain drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] sm:h-32"
         />
       </header>
 

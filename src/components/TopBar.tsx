@@ -2,7 +2,7 @@ import { Clock } from "./Clock";
 import { useLiveListeners } from "@/hooks/useLiveListeners";
 
 const PLAYLIST_URL =
-  "https://www.youtube.com/playlist?list=PLyTzwitHMGXAyxnaw27ZsY7hx0o4x_ZFA";
+  "https://youtube.com/playlist?list=PLS2fUsNYw8KQ&si=AWDwi_DFcKw9XktP";
 
 export function TopBar() {
   const count = useLiveListeners();
@@ -30,13 +30,10 @@ export function TopBar() {
           aria-label="Open the playlist on YouTube Music"
           className="group flex items-center gap-2 rounded-full px-1 py-1 text-white transition-opacity hover:opacity-80"
         >
-          <svg viewBox="0 0 176 176" className="size-6 shrink-0" aria-hidden="true">
-            <circle fill="#FF0000" cx="88" cy="88" r="88" />
-            <path
-              fill="#FFFFFF"
-              d="M88,46c23.1,0,42,18.8,42,42s-18.8,42-42,42s-42-18.8-42-42S64.9,46,88,46 M88,42c-25.4,0-46,20.6-46,46s20.6,46,46,46s46-20.6,46-46S113.4,42,88,42L88,42z"
-            />
-            <polygon fill="#FFFFFF" points="72,111 111,87 72,65" />
+          <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 176 176" className="size-6 shrink-0" aria-hidden="true">
+            <circle cx="88" cy="88" r="88" fill="red" />
+            <path fill="#FFF" d="M88 46c23.1 0 42 18.8 42 42s-18.8 42-42 42-42-18.8-42-42 18.9-42 42-42m0-4c-25.4 0-46 20.6-46 46s20.6 46 46 46 46-20.6 46-46-20.6-46-46-46" />
+            <path fill="#FFF" d="m72 111 39-24-39-22z" />
           </svg>
           <span className="hidden text-[13px] font-semibold tracking-tight sm:inline">
             YT Music
