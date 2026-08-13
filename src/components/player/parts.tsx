@@ -6,31 +6,55 @@ import { formatTime, type Track } from "@/lib/tracks";
 export const GLASS =
   "border border-white/10 bg-gradient-to-b from-white/[0.15] to-white/[0.055] backdrop-blur-3xl backdrop-saturate-[1.7] shadow-[0_16px_48px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.2)]";
 
-export function Vinyl({ size, playing }: { size: number; playing: boolean }) {
+export function Vinyl({
+  size,
+  playing,
+  videoId,
+  title,
+}: {
+  size: number;
+  playing: boolean;
+  videoId?: string;
+  title?: string;
+}) {
   return (
     <div
       className="relative shrink-0 self-start"
       style={{ width: size, height: size }}
-      aria-hidden="true"
     >
       <div
-        className="vinyl-spin size-full rounded-full ring-1 ring-white/15"
+        className="vinyl-spin size-full overflow-hidden rounded-full ring-1 ring-white/15 shadow-[0_8px_20px_-8px_rgba(0,0,0,0.9)]"
         style={{
           animationPlayState: playing ? "running" : "paused",
           background:
-            "repeating-radial-gradient(circle at 50% 50%, #131313 0 2px, #1d1d1d 2px 4px), radial-gradient(circle at 32% 28%, rgba(255,255,255,0.28), transparent 55%)",
-          backgroundBlendMode: "screen",
+            "repeating-radial-gradient(circle at 50% 50%, #131313 0 2px, #1d1d1d 2px 4px)",
         }}
       >
+        {videoId ? (
+          <img
+            src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+            alt={title ? `${title} cover art` : "Cover art"}
+            loading="lazy"
+            className="size-full rounded-full object-cover"
+            style={{ clipPath: "circle(50% at 50% 50%)" }}
+          />
+        ) : null}
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b from-accent-warm to-accent-deep"
-          style={{ width: size * 0.42, height: size * 0.42 }}
+          className="pointer-events-none absolute inset-0 rounded-full"
+          style={{
+            background:
+              "repeating-radial-gradient(circle at 50% 50%, rgba(0,0,0,0.35) 0 2px, rgba(255,255,255,0.06) 2px 4px), radial-gradient(circle at 32% 28%, rgba(255,255,255,0.22), transparent 55%)",
+          }}
         />
       </div>
-      <div className="absolute left-1/2 top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/70 ring-2 ring-white/40" />
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/70 ring-2 ring-white/40"
+      />
     </div>
   );
 }
+
 
 export function Meta({ track, compact }: { track: Track; compact?: boolean }) {
   return (

@@ -24,7 +24,7 @@ function DesktopPlayer(props: {
   const { track, playing, current, duration } = props;
   return (
     <div className={`hidden w-full items-center gap-4 rounded-full p-3 pr-5 sm:flex ${GLASS}`}>
-      <Vinyl size={80} playing={playing} />
+      <Vinyl size={80} playing={playing} videoId={track.videoId} title={track.title} />
       <div className="min-w-0 flex-1">
         <Meta track={track} />
         <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
@@ -56,7 +56,7 @@ function MobilePlayer(props: {
   return (
     <div className={`flex w-full flex-col gap-2 rounded-[26px] p-4 sm:hidden ${GLASS}`}>
       <div className="flex items-center gap-3">
-        <Vinyl size={64} playing={playing} />
+        <Vinyl size={64} playing={playing} videoId={track.videoId} title={track.title} />
         <Meta track={track} compact />
       </div>
       <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
