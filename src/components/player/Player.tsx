@@ -157,9 +157,10 @@ export function Player() {
   /* load the current track */
   useEffect(() => {
     const p = playerRef.current;
-    const startSeconds = Math.max(0, track.startAt ?? 0);
+    const startSeconds = autoStartAt(track.startAt);
     advancedRef.current = false;
     pendingSeekRef.current = null;
+    stallRef.current = { lastTime: -1, since: Date.now() };
     setCurrent(startSeconds);
     setDuration(track.duration);
     if (!p || !ready || !track.videoId) return;
