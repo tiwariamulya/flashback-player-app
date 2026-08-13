@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Clock } from "./Clock";
 
-const links = [
-  { label: "IG", href: "https://instagram.com" },
-  { label: "X", href: "https://x.com" },
-  { label: "YT", href: "https://youtube.com" },
-];
+const PLAYLIST_URL =
+  "https://www.youtube.com/playlist?list=PLyTzwitHMGXAyxnaw27ZsY7hx0o4x_ZFA";
+
 
 export function TopBar({ listeners }: { listeners: number }) {
   const [count, setCount] = useState(listeners);
