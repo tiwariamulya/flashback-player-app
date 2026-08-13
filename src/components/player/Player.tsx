@@ -75,12 +75,8 @@ function MobilePlayer(props: {
         <Meta track={track} compact />
       </div>
       <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
-      <div className="flex items-center justify-between">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2">
         <TimeReadout current={current} duration={duration} />
-        <div className="flex items-center">
-          <MuteButton muted={props.muted} onToggle={props.onToggleMute} hit={32} />
-          <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} hit={32} />
-        </div>
         <Transport
           playing={playing}
           onPrev={props.onPrev}
@@ -89,6 +85,10 @@ function MobilePlayer(props: {
           playSize={44}
           hit={38}
         />
+        <div className="flex shrink-0 items-center">
+          <MuteButton muted={props.muted} onToggle={props.onToggleMute} hit={32} />
+          <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} hit={32} />
+        </div>
       </div>
     </div>
   );
