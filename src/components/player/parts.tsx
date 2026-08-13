@@ -32,20 +32,21 @@ export function Vinyl({
       >
         {videoId ? (
           <img
-            src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+            src={`https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`}
             alt={title ? `${title} cover art` : "Cover art"}
             loading="lazy"
-            className="size-full rounded-full object-cover"
-            style={{ clipPath: "circle(50% at 50% 50%)" }}
+            className="absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-cover"
+            style={{ minWidth: "100%" }}
           />
         ) : null}
         <div
           className="pointer-events-none absolute inset-0 rounded-full"
           style={{
             background:
-              "repeating-radial-gradient(circle at 50% 50%, rgba(0,0,0,0.35) 0 2px, rgba(255,255,255,0.06) 2px 4px), radial-gradient(circle at 32% 28%, rgba(255,255,255,0.22), transparent 55%)",
+              "repeating-radial-gradient(circle at 50% 50%, rgba(0,0,0,0.22) 0 2px, rgba(255,255,255,0.05) 2px 4px), radial-gradient(circle at 32% 28%, rgba(255,255,255,0.18), transparent 55%)",
           }}
         />
+
       </div>
       <div
         aria-hidden="true"
