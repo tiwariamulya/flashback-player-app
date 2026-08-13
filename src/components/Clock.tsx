@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-const fmt = new Intl.DateTimeFormat("en-IN", {
-  timeZone: "Asia/Kolkata",
+const fmt = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Kathmandu",
   hour: "numeric",
   minute: "2-digit",
   hour12: true,
@@ -32,7 +32,7 @@ export function Clock() {
           <span className="blink px-px">:</span>
           {parts.m}
           <span className="ml-1 text-[10.5px] uppercase tracking-[0.18em] text-white/60">
-            {parts.ap} IST
+            {parts.ap} NPT
           </span>
         </span>
       ) : (

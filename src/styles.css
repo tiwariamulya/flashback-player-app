@@ -153,7 +153,13 @@
 @theme inline {
   --color-accent-warm: var(--accent);
   --color-accent-deep: var(--accent-2);
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 }
+
+body {
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
 
 .hero-bg {
   background-image: url("/__l5e/assets-v1/d8c568f1-0212-47d2-a2fa-fb96458f520a/scene-wide.png");

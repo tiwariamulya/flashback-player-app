@@ -4,7 +4,6 @@ import { loadYouTubeApi, trackEvent, type YTPlayer } from "@/lib/youtube";
 import {
   GLASS,
   Meta,
-  PlaylistTabs,
   SeekBar,
   TimeReadout,
   Transport,
@@ -174,14 +173,6 @@ export function Player() {
 
   return (
     <div className="flex w-full max-w-xl flex-col items-center gap-3">
-      <PlaylistTabs
-        names={playlists.map((p) => ({ id: p.id, name: p.name }))}
-        active={pl}
-        onSelect={(i) => {
-          setPl(i);
-          setIdx(0);
-        }}
-      />
 
       {/* Audio-only: the YouTube iframe is mounted off-screen so only sound plays. */}
       <div
