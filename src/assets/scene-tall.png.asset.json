@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "9435e9eb-5ca6-436f-9c48-92bc48c2831e",
-  "project_id": "86a9f4f8-e443-4b41-b346-8525c852b662",
-  "url": "/__l5e/assets-v1/9435e9eb-5ca6-436f-9c48-92bc48c2831e/scene-tall-v2.png",
-  "r2_key": "a/v1/86a9f4f8-e443-4b41-b346-8525c852b662/9435e9eb-5ca6-436f-9c48-92bc48c2831e/scene-tall-v2.png",
-  "original_filename": "scene-tall-v2.png",
-  "size": 2605920,
   "content_type": "image/png",
-  "created_at": "2026-08-13T12:46:35Z"
+  "created_at": "2026-08-13T12:46:35Z",
+  "original_filename": "scene-tall-v2.png",
+  "project_id": "3ecba1c9-2a2b-4f56-b771-c92e0f27266a",
+  "r2_key": "a/v1/3ecba1c9-2a2b-4f56-b771-c92e0f27266a/9435e9eb-5ca6-436f-9c48-92bc48c2831e/scene-tall-v2.png",
+  "size": 2605920,
+  "url": "/__l5e/assets-v1/9435e9eb-5ca6-436f-9c48-92bc48c2831e/scene-tall-v2.png",
+  "version": 1
 }
