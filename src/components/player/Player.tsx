@@ -32,23 +32,29 @@ function DesktopPlayer(props: {
 }) {
   const { track, playing, current, duration } = props;
   return (
-    <div className={`hidden w-full items-center gap-4 rounded-full p-3 pr-5 sm:flex ${GLASS}`}>
-      <Vinyl size={80} playing={playing} videoId={track.videoId} title={track.title} />
-      <div className="min-w-0 flex-1">
-        <Meta track={track} />
-        <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
+    <div className={`hidden w-full grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-4 rounded-full p-3 pr-5 sm:grid ${GLASS}`}>
+      <div className="flex min-w-0 items-center gap-4">
+        <Vinyl size={80} playing={playing} videoId={track.videoId} title={track.title} />
+        <div className="min-w-0 flex-1">
+          <Meta track={track} />
+          <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
+        </div>
       </div>
-      <TimeReadout current={current} duration={duration} />
-      <MuteButton muted={props.muted} onToggle={props.onToggleMute} />
-      <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} />
-      <Transport
-        playing={playing}
-        onPrev={props.onPrev}
-        onNext={props.onNext}
-        onToggle={props.onToggle}
-        playSize={40}
-        hit={34}
-      />
+      <div className="flex justify-center">
+        <Transport
+          playing={playing}
+          onPrev={props.onPrev}
+          onNext={props.onNext}
+          onToggle={props.onToggle}
+          playSize={40}
+          hit={34}
+        />
+      </div>
+      <div className="flex shrink-0 items-center gap-2">
+        <TimeReadout current={current} duration={duration} />
+        <MuteButton muted={props.muted} onToggle={props.onToggleMute} />
+        <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} />
+      </div>
     </div>
   );
 }
