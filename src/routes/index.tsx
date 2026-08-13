@@ -33,7 +33,7 @@ function Index() {
       </div>
       <div className="grain pointer-events-none fixed inset-0 -z-10" />
 
-      <TopBar listeners={128} />
+      <TopBar />
 
       <header className="safe-t pointer-events-none mt-20 flex justify-center px-6 sm:mt-24">
         <img
