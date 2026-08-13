@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TopBar } from "@/components/TopBar";
 import { Player } from "@/components/player/Player";
-import logoAsset from "@/assets/logo.png.asset.json";
+import logoAsset from "@/assets/logo.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -21,6 +21,23 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [
+      { rel: "preload", as: "image", href: logoAsset.url, fetchPriority: "high" },
+      {
+        rel: "preload",
+        as: "image",
+        href: "/__l5e/assets-v1/18fa3a48-c300-443a-bd25-13a8686fbb70/scene-wide.webp",
+        media: "(orientation: landscape)",
+        fetchPriority: "high",
+      },
+      {
+        rel: "preload",
+        as: "image",
+        href: "/__l5e/assets-v1/7ae66946-e258-4f09-9bb4-c762d1a935ce/scene-tall.webp",
+        media: "(orientation: portrait)",
+        fetchPriority: "high",
+      },
+    ],
   }),
   component: Index,
 });
@@ -39,6 +56,10 @@ function Index() {
         <img
           src={logoAsset.url}
           alt="Station logo"
+          width={672}
+          height={362}
+          fetchPriority="high"
+          decoding="async"
           className="h-24 w-auto max-w-[80vw] object-contain drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] sm:h-32"
         />
       </header>
