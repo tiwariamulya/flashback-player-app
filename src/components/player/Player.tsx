@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { playlists } from "@/lib/tracks";
 import { loadYouTubeApi, trackEvent, type YTPlayer } from "@/lib/youtube";
 import { resolveSkip } from "@/lib/skip";
+import { autoStartAt, inSilentTail, resolveStall, type StallState } from "@/lib/autoskip";
 import {
   GLASS,
   Meta,
@@ -94,6 +95,7 @@ export function Player() {
   const advancedRef = useRef(false);
   const pendingSeekRef = useRef<number | null>(null);
   const lastSeekAtRef = useRef(0);
+  const stallRef = useRef<StallState>({ lastTime: -1, since: 0 });
 
   const list = playlists[pl] ?? playlists[0]!;
   const track = list.tracks[idx] ?? list.tracks[0]!;
@@ -155,9 +157,10 @@ export function Player() {
   /* load the current track */
   useEffect(() => {
     const p = playerRef.current;
-    const startSeconds = Math.max(0, track.startAt ?? 0);
+    const startSeconds = autoStartAt(track.startAt);
     advancedRef.current = false;
     pendingSeekRef.current = null;
+    stallRef.current = { lastTime: -1, since: Date.now() };
     setCurrent(startSeconds);
     setDuration(track.duration);
     if (!p || !ready || !track.videoId) return;
@@ -190,7 +193,23 @@ export function Player() {
       }
 
       const action = resolveSkip(time, trackRef.current, d);
-      if (!action) return;
+
+      /* no explicit timing hit — fall back to automatic heuristics */
+      if (!action) {
+        if (inSilentTail(time, d, trackRef.current.endAt)) {
+          advanceOnceRef.current();
+          return;
+        }
+        const nudge = resolveStall(time, Date.now(), stallRef.current);
+        if (nudge !== null && d > 0 && nudge < d - 1) {
+          pendingSeekRef.current = nudge;
+          lastSeekAtRef.current = Date.now();
+          setCurrent(nudge);
+          p.seekTo(nudge, true);
+        }
+        return;
+      }
+
       if (action.type === "end") {
         advanceOnceRef.current();
         return;
