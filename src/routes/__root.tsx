@@ -97,7 +97,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
-
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Driver Dai",
+          url: "https://driverdai.lovable.app/",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
