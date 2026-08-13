@@ -201,3 +201,7 @@ body {
 .safe-b { bottom: max(1rem, env(safe-area-inset-bottom)); }
 .safe-l { left: max(1rem, env(safe-area-inset-left)); }
 .safe-r { right: max(1rem, env(safe-area-inset-right)); }
+
+#lovable-badge {
+  display: none !important;
+}
