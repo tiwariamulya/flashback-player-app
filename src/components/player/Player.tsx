@@ -90,15 +90,17 @@ export function Player() {
   const idxRef = useRef(0);
   idxRef.current = idx;
 
-  const tracks = playlists[pl].tracks;
-  const track = tracks[idx];
+  const list = playlists[pl] ?? playlists[0]!;
+  const track = list.tracks[idx] ?? list.tracks[0]!;
   const hasVideo = Boolean(track.videoId);
 
   const next = useCallback(() => {
-    setIdx((i) => (i + 1) % playlists[pl].tracks.length);
+    const n = (playlists[pl] ?? playlists[0]!).tracks.length;
+    setIdx((i) => (i + 1) % n);
   }, [pl]);
   const prev = useCallback(() => {
-    setIdx((i) => (i - 1 + playlists[pl].tracks.length) % playlists[pl].tracks.length);
+    const n = (playlists[pl] ?? playlists[0]!).tracks.length;
+    setIdx((i) => (i - 1 + n) % n);
   }, [pl]);
 
   /* create the player once */
@@ -119,7 +121,7 @@ export function Player() {
             if (e.data === S.ENDED) next();
           },
           onError: (e: { data: number }) => {
-            const cur = playlists[pl].tracks[idxRef.current];
+            const cur = (playlists[pl] ?? playlists[0]!).tracks[idxRef.current];
             trackEvent("yt_player_error", { code: e.data, videoId: cur?.videoId });
             next();
           },
