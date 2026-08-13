@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { playlists } from "@/lib/tracks";
 import { loadYouTubeApi, trackEvent, type YTPlayer } from "@/lib/youtube";
+import { resolveSkip } from "@/lib/skip";
 import {
   GLASS,
   Meta,
@@ -89,18 +90,34 @@ export function Player() {
   const idxRef = useRef(0);
   idxRef.current = idx;
 
+  /* guards so gap-skipping never loops, double-seeks or double-advances */
+  const advancedRef = useRef(false);
+  const pendingSeekRef = useRef<number | null>(null);
+  const lastSeekAtRef = useRef(0);
+
   const list = playlists[pl] ?? playlists[0]!;
   const track = list.tracks[idx] ?? list.tracks[0]!;
   const hasVideo = Boolean(track.videoId);
+  const trackRef = useRef(track);
+  trackRef.current = track;
 
   const next = useCallback(() => {
     const n = (playlists[pl] ?? playlists[0]!).tracks.length;
     setIdx((i) => (i + 1) % n);
   }, [pl]);
+  /** advance once per track, whatever triggers it (endAt, ENDED, error) */
+  const advanceOnce = useCallback(() => {
+    if (advancedRef.current) return;
+    advancedRef.current = true;
+    next();
+  }, [next]);
   const prev = useCallback(() => {
     const n = (playlists[pl] ?? playlists[0]!).tracks.length;
     setIdx((i) => (i - 1 + n) % n);
   }, [pl]);
+
+  const advanceOnceRef = useRef(advanceOnce);
+  advanceOnceRef.current = advanceOnce;
 
   /* create the player once */
   useEffect(() => {
@@ -117,12 +134,12 @@ export function Player() {
             const S = window.YT!.PlayerState;
             if (e.data === S.PLAYING) setPlaying(true);
             if (e.data === S.PAUSED) setPlaying(false);
-            if (e.data === S.ENDED) next();
+            if (e.data === S.ENDED) advanceOnceRef.current();
           },
           onError: (e: { data: number }) => {
             const cur = (playlists[pl] ?? playlists[0]!).tracks[idxRef.current];
             trackEvent("yt_player_error", { code: e.data, videoId: cur?.videoId });
-            next();
+            advanceOnceRef.current();
           },
         },
       });
@@ -138,11 +155,15 @@ export function Player() {
   /* load the current track */
   useEffect(() => {
     const p = playerRef.current;
-    setCurrent(0);
+    const startSeconds = Math.max(0, track.startAt ?? 0);
+    advancedRef.current = false;
+    pendingSeekRef.current = null;
+    setCurrent(startSeconds);
     setDuration(track.duration);
     if (!p || !ready || !track.videoId) return;
-    if (playing) p.loadVideoById(track.videoId);
-    else p.cueVideoById(track.videoId);
+    const args = { videoId: track.videoId, startSeconds };
+    if (playing) p.loadVideoById(args);
+    else p.cueVideoById(args);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track.videoId, ready]);
 
@@ -152,10 +173,33 @@ export function Player() {
     const t = window.setInterval(() => {
       const p = playerRef.current;
       if (!p) return;
-      setCurrent(p.getCurrentTime() ?? 0);
+      const time = p.getCurrentTime() ?? 0;
+      setCurrent(time);
       const d = p.getDuration?.() ?? 0;
       if (d > 0) setDuration(d);
-    }, 400);
+
+      if (advancedRef.current) return;
+
+      /* wait for an in-flight seek to land before deciding anything else */
+      const pending = pendingSeekRef.current;
+      if (pending !== null) {
+        if (time >= pending - 0.3 || Date.now() - lastSeekAtRef.current > 3000) {
+          pendingSeekRef.current = null;
+        }
+        return;
+      }
+
+      const action = resolveSkip(time, trackRef.current, d);
+      if (!action) return;
+      if (action.type === "end") {
+        advanceOnceRef.current();
+        return;
+      }
+      pendingSeekRef.current = action.to;
+      lastSeekAtRef.current = Date.now();
+      setCurrent(action.to);
+      p.seekTo(action.to, true);
+    }, 250);
     return () => window.clearInterval(t);
   }, [playing]);
 
@@ -168,6 +212,7 @@ export function Player() {
 
   const onSeek = useCallback((s: number) => {
     setCurrent(s);
+    pendingSeekRef.current = null;
     playerRef.current?.seekTo(s, true);
   }, []);
 
