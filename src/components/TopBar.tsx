@@ -1,22 +1,11 @@
-import { useEffect, useState } from "react";
 import { Clock } from "./Clock";
+import { useLiveListeners } from "@/hooks/useLiveListeners";
 
 const PLAYLIST_URL =
   "https://www.youtube.com/playlist?list=PLyTzwitHMGXAyxnaw27ZsY7hx0o4x_ZFA";
 
-
-export function TopBar({ listeners }: { listeners: number }) {
-  const [count, setCount] = useState(listeners);
-
-  useEffect(() => {
-    const t = window.setInterval(() => {
-      setCount((c) => {
-        const next = c + (Math.random() < 0.5 ? -1 : 1) * Math.ceil(Math.random() * 3);
-        return Math.min(listeners + 40, Math.max(listeners - 30, next));
-      });
-    }, 4000);
-    return () => window.clearInterval(t);
-  }, [listeners]);
+export function TopBar() {
+  const count = useLiveListeners();
 
   return (
     <>
@@ -38,22 +27,26 @@ export function TopBar({ listeners }: { listeners: number }) {
           href={PLAYLIST_URL}
           target="_blank"
           rel="noreferrer noopener"
-          aria-label="Open the playlist on YouTube"
-          className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.08] px-3 py-1.5 backdrop-blur-xl transition-colors hover:bg-white/[0.16]"
+          aria-label="Open the playlist on YouTube Music"
+          className="group flex items-center gap-2 rounded-full bg-white/95 py-1.5 pl-2 pr-3 text-neutral-900 shadow-[0_8px_24px_-10px_rgba(0,0,0,0.8)] transition-colors hover:bg-white"
         >
-          <svg viewBox="0 0 28 20" className="h-4 w-[22px]" aria-hidden="true">
-            <path
-              fill="#FF0033"
-              d="M27.4 3.1A3.5 3.5 0 0 0 24.9.6C22.7 0 14 0 14 0S5.3 0 3.1.6A3.5 3.5 0 0 0 .6 3.1C0 5.3 0 10 0 10s0 4.7.6 6.9a3.5 3.5 0 0 0 2.5 2.5C5.3 20 14 20 14 20s8.7 0 10.9-.6a3.5 3.5 0 0 0 2.5-2.5C28 14.7 28 10 28 10s0-4.7-.6-6.9Z"
-            />
-            <path fill="#fff" d="M11.2 14.3 18.4 10l-7.2-4.3v8.6Z" />
+          <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
+            <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+            <path d="M9.8 8.2 16 12l-6.2 3.8V8.2Z" fill="currentColor" />
           </svg>
-          <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/75">
-            Playlist
-          </span>
+          <span className="text-[13px] font-semibold tracking-tight">YT Music</span>
+          <svg viewBox="0 0 12 12" className="size-3 opacity-70" aria-hidden="true">
+            <path
+              d="M3 9 9 3M4.2 3H9v4.8"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </a>
       </nav>
-
     </>
   );
 }
