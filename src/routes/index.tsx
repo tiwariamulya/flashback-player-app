@@ -34,12 +34,14 @@ function Index() {
 
       <TopBar listeners={128} />
 
-      <header className="safe-t pointer-events-none mt-20 px-6 text-center sm:mt-24">
-        <h1 className="text-2xl font-semibold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] sm:text-3xl">
-          Golden Hour Radio
-        </h1>
-        <p className="mt-1 text-[12.5px] text-white/70">Songs from the long way home</p>
+      <header className="safe-t pointer-events-none mt-20 flex justify-center px-6 sm:mt-24">
+        <img
+          src={logoAsset.url}
+          alt="Station logo"
+          className="h-24 w-auto max-w-[80vw] object-contain drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] sm:h-32"
+        />
       </header>
+
 
       <div className="safe-b safe-l safe-r fixed z-20 flex justify-center">
         <div className="mx-auto flex w-full max-w-xl justify-center px-4">
