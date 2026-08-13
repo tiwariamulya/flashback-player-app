@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Clock } from "./Clock";
 
 const links = [
@@ -7,6 +8,18 @@ const links = [
 ];
 
 export function TopBar({ listeners }: { listeners: number }) {
+  const [count, setCount] = useState(listeners);
+
+  useEffect(() => {
+    const t = window.setInterval(() => {
+      setCount((c) => {
+        const next = c + (Math.random() < 0.5 ? -1 : 1) * Math.ceil(Math.random() * 3);
+        return Math.min(listeners + 40, Math.max(listeners - 30, next));
+      });
+    }, 4000);
+    return () => window.clearInterval(t);
+  }, [listeners]);
+
   return (
     <>
       <div className="safe-t safe-l fixed z-20">
@@ -17,7 +30,7 @@ export function TopBar({ listeners }: { listeners: number }) {
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.08] px-3 py-1 backdrop-blur-xl">
           <span className="size-1.5 rounded-full bg-accent-warm shadow-[0_0_8px_var(--accent)]" />
           <span className="text-[11px] tabular-nums tracking-wide text-white/80">
-            {listeners} listening
+            {count} listening
           </span>
         </div>
       </div>

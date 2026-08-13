@@ -1,18 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TopBar } from "@/components/TopBar";
 import { Player } from "@/components/player/Player";
+import logoAsset from "@/assets/logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Golden Hour Radio — nostalgia on loop" },
+      { title: "Nepali Nostalgia Radio — songs on loop" },
       {
         name: "description",
         content:
           "A one-page nostalgia radio: dusty evening streets, a spinning record and hand-picked playlists that keep playing.",
       },
-      { property: "og:title", content: "Golden Hour Radio — nostalgia on loop" },
+      { property: "og:title", content: "Nepali Nostalgia Radio — songs on loop" },
       {
         property: "og:description",
         content: "Hand-picked nostalgia playlists, playing over a warm evening street scene.",
