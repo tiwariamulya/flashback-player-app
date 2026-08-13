@@ -32,7 +32,7 @@ export function Clock() {
           <span className="blink px-px">:</span>
           {parts.m}
           <span className="ml-1 text-[10.5px] uppercase tracking-[0.18em] text-white/60">
-            {parts.ap} NPT
+            {parts.ap}
           </span>
         </span>
       ) : (
