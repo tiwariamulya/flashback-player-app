@@ -30,7 +30,7 @@ export function TopBar() {
           aria-label="Open the playlist on YouTube Music"
           className="group flex items-center gap-2 rounded-full px-1 py-1 text-white transition-opacity hover:opacity-80"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 176 176" className="size-6 shrink-0" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" viewBox="0 0 176 176" className="size-6 shrink-0" aria-hidden="true">
             <circle cx="88" cy="88" r="88" fill="red" />
             <path fill="#FFF" d="M88 46c23.1 0 42 18.8 42 42s-18.8 42-42 42-42-18.8-42-42 18.9-42 42-42m0-4c-25.4 0-46 20.6-46 46s20.6 46 46 46 46-20.6 46-46-20.6-46-46-46" />
             <path fill="#FFF" d="m72 111 39-24-39-22z" />
