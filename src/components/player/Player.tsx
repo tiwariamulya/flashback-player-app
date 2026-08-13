@@ -1,0 +1,219 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+import { playlists } from "@/lib/tracks";
+import { loadYouTubeApi, trackEvent, type YTPlayer } from "@/lib/youtube";
+import {
+  GLASS,
+  Meta,
+  PlaylistTabs,
+  SeekBar,
+  TimeReadout,
+  Transport,
+  Vinyl,
+} from "./parts";
+import type { Track } from "@/lib/tracks";
+
+function DesktopPlayer(props: {
+  track: Track;
+  playing: boolean;
+  current: number;
+  duration: number;
+  onSeek: (s: number) => void;
+  onPrev: () => void;
+  onNext: () => void;
+  onToggle: () => void;
+}) {
+  const { track, playing, current, duration } = props;
+  return (
+    <div className={`hidden w-full items-center gap-4 rounded-full p-3 pr-5 sm:flex ${GLASS}`}>
+      <Vinyl size={80} playing={playing} />
+      <div className="min-w-0 flex-1">
+        <Meta track={track} />
+        <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
+      </div>
+      <TimeReadout current={current} duration={duration} />
+      <Transport
+        playing={playing}
+        onPrev={props.onPrev}
+        onNext={props.onNext}
+        onToggle={props.onToggle}
+        playSize={40}
+        hit={34}
+      />
+    </div>
+  );
+}
+
+function MobilePlayer(props: {
+  track: Track;
+  playing: boolean;
+  current: number;
+  duration: number;
+  onSeek: (s: number) => void;
+  onPrev: () => void;
+  onNext: () => void;
+  onToggle: () => void;
+}) {
+  const { track, playing, current, duration } = props;
+  return (
+    <div className={`flex w-full flex-col gap-2 rounded-[26px] p-4 sm:hidden ${GLASS}`}>
+      <div className="flex items-center gap-3">
+        <Vinyl size={64} playing={playing} />
+        <Meta track={track} compact />
+      </div>
+      <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
+      <div className="flex items-center justify-between">
+        <TimeReadout current={current} duration={duration} />
+        <Transport
+          playing={playing}
+          onPrev={props.onPrev}
+          onNext={props.onNext}
+          onToggle={props.onToggle}
+          playSize={52}
+          hit={44}
+        />
+        <span className="w-14" />
+      </div>
+    </div>
+  );
+}
+
+export function Player() {
+  const [pl, setPl] = useState(0);
+  const [idx, setIdx] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [ready, setReady] = useState(false);
+
+  const playerRef = useRef<YTPlayer | null>(null);
+  const hostRef = useRef<HTMLDivElement>(null);
+  const idxRef = useRef(0);
+  idxRef.current = idx;
+
+  const tracks = playlists[pl].tracks;
+  const track = tracks[idx];
+  const hasVideo = Boolean(track.videoId);
+
+  const next = useCallback(() => {
+    setIdx((i) => (i + 1) % playlists[pl].tracks.length);
+  }, [pl]);
+  const prev = useCallback(() => {
+    setIdx((i) => (i - 1 + playlists[pl].tracks.length) % playlists[pl].tracks.length);
+  }, [pl]);
+
+  /* create the player once */
+  useEffect(() => {
+    let cancelled = false;
+    loadYouTubeApi().then(() => {
+      if (cancelled || !hostRef.current || !window.YT) return;
+      playerRef.current = new window.YT.Player(hostRef.current, {
+        width: "100%",
+        height: "100%",
+        playerVars: { playsinline: 1, rel: 0, modestbranding: 1 },
+        events: {
+          onReady: () => setReady(true),
+          onStateChange: (e: { data: number }) => {
+            const S = window.YT!.PlayerState;
+            if (e.data === S.PLAYING) setPlaying(true);
+            if (e.data === S.PAUSED) setPlaying(false);
+            if (e.data === S.ENDED) next();
+          },
+          onError: (e: { data: number }) => {
+            const cur = playlists[pl].tracks[idxRef.current];
+            trackEvent("yt_player_error", { code: e.data, videoId: cur?.videoId });
+            next();
+          },
+        },
+      });
+    });
+    return () => {
+      cancelled = true;
+      playerRef.current?.destroy?.();
+      playerRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* load the current track */
+  useEffect(() => {
+    const p = playerRef.current;
+    setCurrent(0);
+    setDuration(track.duration);
+    if (!p || !ready || !track.videoId) return;
+    if (playing) p.loadVideoById(track.videoId);
+    else p.cueVideoById(track.videoId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [track.videoId, ready]);
+
+  /* progress ticker */
+  useEffect(() => {
+    if (!playing) return;
+    const t = window.setInterval(() => {
+      const p = playerRef.current;
+      if (!p) return;
+      setCurrent(p.getCurrentTime() ?? 0);
+      const d = p.getDuration?.() ?? 0;
+      if (d > 0) setDuration(d);
+    }, 400);
+    return () => window.clearInterval(t);
+  }, [playing]);
+
+  const onToggle = useCallback(() => {
+    const p = playerRef.current;
+    if (!p || !track.videoId) return;
+    if (playing) p.pauseVideo();
+    else p.playVideo();
+  }, [playing, track.videoId]);
+
+  const onSeek = useCallback((s: number) => {
+    setCurrent(s);
+    playerRef.current?.seekTo(s, true);
+  }, []);
+
+  return (
+    <div className="flex w-full max-w-xl flex-col items-center gap-3">
+      <PlaylistTabs
+        names={playlists.map((p) => ({ id: p.id, name: p.name }))}
+        active={pl}
+        onSelect={(i) => {
+          setPl(i);
+          setIdx(0);
+        }}
+      />
+
+      {/* The YouTube player stays visible: no background playback, ads stay skippable. */}
+      <div className={`w-full overflow-hidden rounded-2xl p-2 ${GLASS}`}>
+        <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black/60">
+          <div ref={hostRef} className="size-full" />
+          {!hasVideo && (
+            <div className="absolute inset-0 flex items-center justify-center px-6 text-center text-[12px] leading-relaxed text-white/70">
+              No videoId yet — add one you own or that comes from the rights holder's
+              own channel in <code className="mx-1 text-white/90">src/lib/tracks.ts</code>.
+            </div>
+          )}
+        </div>
+      </div>
+
+      <DesktopPlayer
+        track={track}
+        playing={playing}
+        current={current}
+        duration={duration}
+        onSeek={onSeek}
+        onPrev={prev}
+        onNext={next}
+        onToggle={onToggle}
+      />
+      <MobilePlayer
+        track={track}
+        playing={playing}
+        current={current}
+        duration={duration}
+        onSeek={onSeek}
+        onPrev={prev}
+        onNext={next}
+        onToggle={onToggle}
+      />
+    </div>
+  );
+}
