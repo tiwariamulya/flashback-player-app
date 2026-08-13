@@ -48,7 +48,7 @@ function DesktopPlayer(props: {
         playSize={40}
         hit={34}
       />
-      <div className="flex flex-1 items-center justify-end gap-2">
+      <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
         <TimeReadout current={current} duration={duration} />
         <MuteButton muted={props.muted} onToggle={props.onToggleMute} />
         <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} />
