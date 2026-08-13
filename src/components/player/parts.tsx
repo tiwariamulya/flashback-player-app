@@ -247,3 +247,129 @@ export function PlaylistTabs({
     </div>
   );
 }
+
+function IconVolume() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-4 fill-current">
+      <path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12zM14 2.2v2.06A7.5 7.5 0 0 1 14 19.74v2.06A9.5 9.5 0 0 0 14 2.2z" />
+    </svg>
+  );
+}
+function IconMuted() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-4 fill-current">
+      <path d="M4 9v6h4l5 4V5L8 9H4zm11.6 3 2.6-2.6-1.4-1.4-2.6 2.6-2.6-2.6-1.4 1.4 2.6 2.6-2.6 2.6 1.4 1.4 2.6-2.6 2.6 2.6 1.4-1.4-2.6-2.6z" />
+    </svg>
+  );
+}
+function IconList() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-4 fill-current">
+      <path d="M3 6h11v2H3zM3 11h11v2H3zM3 16h7v2H3zM16 10l6 3-6 3z" />
+    </svg>
+  );
+}
+
+export function IconButton({
+  label,
+  active,
+  onClick,
+  hit,
+  children,
+}: {
+  label: string;
+  active?: boolean;
+  onClick: () => void;
+  hit: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={onClick}
+      className={`flex shrink-0 items-center justify-center rounded-full transition-colors ${
+        active ? "text-accent-warm" : "text-white/70 hover:text-white"
+      }`}
+      style={{ width: hit, height: hit }}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function MuteButton({
+  muted,
+  onToggle,
+  hit = 34,
+}: {
+  muted: boolean;
+  onToggle: () => void;
+  hit?: number;
+}) {
+  return (
+    <IconButton label={muted ? "Unmute" : "Mute"} onClick={onToggle} hit={hit} active={muted}>
+      {muted ? <IconMuted /> : <IconVolume />}
+    </IconButton>
+  );
+}
+
+export function PlaylistButton({
+  open,
+  onToggle,
+  hit = 34,
+}: {
+  open: boolean;
+  onToggle: () => void;
+  hit?: number;
+}) {
+  return (
+    <IconButton label="Show playlist" onClick={onToggle} hit={hit} active={open}>
+      <IconList />
+    </IconButton>
+  );
+}
+
+export function SongList({
+  tracks,
+  activeId,
+  onPick,
+}: {
+  tracks: Track[];
+  activeId: string;
+  onPick: (i: number) => void;
+}) {
+  return (
+    <div className={`max-h-72 w-full overflow-y-auto rounded-2xl p-1.5 ${GLASS}`}>
+      <ul className="flex flex-col">
+        {tracks.map((t, i) => {
+          const active = t.id === activeId;
+          return (
+            <li key={t.id}>
+              <button
+                type="button"
+                onClick={() => onPick(i)}
+                className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left transition-colors ${
+                  active ? "bg-white/20" : "hover:bg-white/10"
+                }`}
+              >
+                <span className="w-5 shrink-0 tabular-nums text-[11px] text-white/45">{i + 1}</span>
+                <span className="min-w-0 flex-1">
+                  <span
+                    className={`block truncate text-[13px] ${active ? "text-white" : "text-white/85"}`}
+                  >
+                    {t.title}
+                  </span>
+                  <span className="block truncate text-[11px] text-white/55">{t.artist}</span>
+                </span>
+                <span className="shrink-0 text-[10.5px] tabular-nums text-white/45">
+                  {formatTime(t.duration)}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
