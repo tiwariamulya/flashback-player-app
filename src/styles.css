@@ -142,3 +142,56 @@
     color: var(--color-foreground);
   }
 }
+
+/* ---------- nostalgia site ---------- */
+
+:root {
+  --accent: oklch(0.78 0.16 62);
+  --accent-2: oklch(0.66 0.17 40);
+}
+
+@theme inline {
+  --color-accent-warm: var(--accent);
+  --color-accent-deep: var(--accent-2);
+}
+
+.hero-bg {
+  background-image: url("/__l5e/assets-v1/d8c568f1-0212-47d2-a2fa-fb96458f520a/scene-wide.png");
+}
+
+@media (orientation: portrait) {
+  .hero-bg {
+    background-image: url("/__l5e/assets-v1/7a491699-4851-4410-80d5-d657e59052ae/scene-tall.png");
+  }
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.3;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vinyl-spin {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+.safe-t { top: max(1rem, env(safe-area-inset-top)); }
+.safe-b { bottom: max(1rem, env(safe-area-inset-bottom)); }
+.safe-l { left: max(1rem, env(safe-area-inset-left)); }
+.safe-r { right: max(1rem, env(safe-area-inset-right)); }
