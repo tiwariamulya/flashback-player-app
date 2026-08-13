@@ -1,3 +1,5 @@
+export type SkipRange = { start: number; end: number };
+
 export type Track = {
   id: string;
   title: string;
@@ -11,7 +13,14 @@ export type Track = {
    * embedding enabled. No fan re-uploads, no "sped up" edits.
    */
   videoId: string;
+  /** optional: start playback here (skips intro talk / silence) */
+  startAt?: number;
+  /** optional: treat this as the end of the song and move to the next track */
+  endAt?: number;
+  /** optional: sections to jump over automatically */
+  skipRanges?: SkipRange[];
 };
+
 
 export type Playlist = {
   id: string;
