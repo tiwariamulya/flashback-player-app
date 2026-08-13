@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { playlists } from "@/lib/tracks";
+import { playlists, shuffle } from "@/lib/tracks";
 import { loadYouTubeApi, trackEvent, type YTPlayer } from "@/lib/youtube";
 import { resolveSkip } from "@/lib/skip";
 import { autoStartAt, inSilentTail, resolveStall, type StallState } from "@/lib/autoskip";
