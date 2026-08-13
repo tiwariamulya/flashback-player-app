@@ -95,6 +95,7 @@ export function Player() {
   const advancedRef = useRef(false);
   const pendingSeekRef = useRef<number | null>(null);
   const lastSeekAtRef = useRef(0);
+  const stallRef = useRef<StallState>({ lastTime: -1, since: 0 });
 
   const list = playlists[pl] ?? playlists[0]!;
   const track = list.tracks[idx] ?? list.tracks[0]!;
