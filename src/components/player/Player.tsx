@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { playlists } from "@/lib/tracks";
+import { playlists, shuffle } from "@/lib/tracks";
 import { loadYouTubeApi, trackEvent, type YTPlayer } from "@/lib/youtube";
 import { resolveSkip } from "@/lib/skip";
 import { autoStartAt, inSilentTail, resolveStall, type StallState } from "@/lib/autoskip";
 import {
   GLASS,
   Meta,
+  MuteButton,
+  PlaylistButton,
+  SongList,
   SeekBar,
   TimeReadout,
   Transport,
@@ -22,6 +25,10 @@ function DesktopPlayer(props: {
   onPrev: () => void;
   onNext: () => void;
   onToggle: () => void;
+  muted: boolean;
+  onToggleMute: () => void;
+  listOpen: boolean;
+  onToggleList: () => void;
 }) {
   const { track, playing, current, duration } = props;
   return (
@@ -32,6 +39,8 @@ function DesktopPlayer(props: {
         <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
       </div>
       <TimeReadout current={current} duration={duration} />
+      <MuteButton muted={props.muted} onToggle={props.onToggleMute} />
+      <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} />
       <Transport
         playing={playing}
         onPrev={props.onPrev}
@@ -53,6 +62,10 @@ function MobilePlayer(props: {
   onPrev: () => void;
   onNext: () => void;
   onToggle: () => void;
+  muted: boolean;
+  onToggleMute: () => void;
+  listOpen: boolean;
+  onToggleList: () => void;
 }) {
   const { track, playing, current, duration } = props;
   return (
@@ -64,6 +77,10 @@ function MobilePlayer(props: {
       <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
       <div className="flex items-center justify-between">
         <TimeReadout current={current} duration={duration} />
+        <div className="flex items-center">
+          <MuteButton muted={props.muted} onToggle={props.onToggleMute} hit={32} />
+          <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} hit={32} />
+        </div>
         <Transport
           playing={playing}
           onPrev={props.onPrev}
@@ -72,7 +89,6 @@ function MobilePlayer(props: {
           playSize={44}
           hit={38}
         />
-        <span className="w-12" />
       </div>
     </div>
   );
@@ -85,6 +101,9 @@ export function Player() {
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
   const [ready, setReady] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const [listOpen, setListOpen] = useState(false);
+  const [tracks, setTracks] = useState<Track[]>(() => (playlists[0]?.tracks ?? []));
 
   const playerRef = useRef<YTPlayer | null>(null);
   const hostRef = useRef<HTMLDivElement>(null);
@@ -98,15 +117,25 @@ export function Player() {
   const stallRef = useRef<StallState>({ lastTime: -1, since: 0 });
 
   const list = playlists[pl] ?? playlists[0]!;
-  const track = list.tracks[idx] ?? list.tracks[0]!;
+  const track = tracks[idx] ?? list.tracks[0]!;
   const hasVideo = Boolean(track.videoId);
   const trackRef = useRef(track);
   trackRef.current = track;
+  const tracksRef = useRef(tracks);
+  tracksRef.current = tracks;
+
+  /* shuffle the running order after hydration so every visit differs */
+  useEffect(() => {
+    setTracks(shuffle((playlists[pl] ?? playlists[0]!).tracks));
+    setIdx(0);
+  }, [pl]);
+
+  const countRef = useRef(1);
+  countRef.current = Math.max(1, tracks.length);
 
   const next = useCallback(() => {
-    const n = (playlists[pl] ?? playlists[0]!).tracks.length;
-    setIdx((i) => (i + 1) % n);
-  }, [pl]);
+    setIdx((i) => (i + 1) % countRef.current);
+  }, []);
   /** advance once per track, whatever triggers it (endAt, ENDED, error) */
   const advanceOnce = useCallback(() => {
     if (advancedRef.current) return;
@@ -114,9 +143,8 @@ export function Player() {
     next();
   }, [next]);
   const prev = useCallback(() => {
-    const n = (playlists[pl] ?? playlists[0]!).tracks.length;
-    setIdx((i) => (i - 1 + n) % n);
-  }, [pl]);
+    setIdx((i) => (i - 1 + countRef.current) % countRef.current);
+  }, []);
 
   const advanceOnceRef = useRef(advanceOnce);
   advanceOnceRef.current = advanceOnce;
@@ -139,7 +167,7 @@ export function Player() {
             if (e.data === S.ENDED) advanceOnceRef.current();
           },
           onError: (e: { data: number }) => {
-            const cur = (playlists[pl] ?? playlists[0]!).tracks[idxRef.current];
+            const cur = tracksRef.current[idxRef.current];
             trackEvent("yt_player_error", { code: e.data, videoId: cur?.videoId });
             advanceOnceRef.current();
           },
@@ -229,6 +257,19 @@ export function Player() {
     else p.playVideo();
   }, [playing, track.videoId]);
 
+  const onToggleMute = useCallback(() => {
+    const p = playerRef.current;
+    if (!p) return;
+    if (muted) p.unMute?.();
+    else p.mute?.();
+    setMuted((m) => !m);
+  }, [muted]);
+
+  const onPick = useCallback((i: number) => {
+    setIdx(i);
+    setListOpen(false);
+  }, []);
+
   const onSeek = useCallback((s: number) => {
     setCurrent(s);
     pendingSeekRef.current = null;
@@ -253,6 +294,10 @@ export function Player() {
       )}
 
 
+      {listOpen && (
+        <SongList tracks={tracks} activeId={track.id} onPick={onPick} />
+      )}
+
       <DesktopPlayer
         track={track}
         playing={playing}
@@ -262,6 +307,10 @@ export function Player() {
         onPrev={prev}
         onNext={next}
         onToggle={onToggle}
+        muted={muted}
+        onToggleMute={onToggleMute}
+        listOpen={listOpen}
+        onToggleList={() => setListOpen((o) => !o)}
       />
       <MobilePlayer
         track={track}
@@ -272,6 +321,10 @@ export function Player() {
         onPrev={prev}
         onNext={next}
         onToggle={onToggle}
+        muted={muted}
+        onToggleMute={onToggleMute}
+        listOpen={listOpen}
+        onToggleList={() => setListOpen((o) => !o)}
       />
     </div>
   );
