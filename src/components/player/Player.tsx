@@ -32,15 +32,14 @@ function DesktopPlayer(props: {
 }) {
   const { track, playing, current, duration } = props;
   return (
-    <div className={`hidden w-full items-center gap-4 rounded-full p-3 pr-5 sm:flex ${GLASS}`}>
-      <Vinyl size={80} playing={playing} videoId={track.videoId} title={track.title} />
-      <div className="min-w-0 flex-1">
-        <Meta track={track} />
-        <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
+    <div className={`hidden w-full items-center justify-between gap-4 rounded-full p-3 pr-5 sm:flex ${GLASS}`}>
+      <div className="flex min-w-0 flex-1 items-center gap-4">
+        <Vinyl size={80} playing={playing} videoId={track.videoId} title={track.title} />
+        <div className="min-w-0 flex-1">
+          <Meta track={track} />
+          <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
+        </div>
       </div>
-      <TimeReadout current={current} duration={duration} />
-      <MuteButton muted={props.muted} onToggle={props.onToggleMute} />
-      <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} />
       <Transport
         playing={playing}
         onPrev={props.onPrev}
@@ -49,6 +48,11 @@ function DesktopPlayer(props: {
         playSize={40}
         hit={34}
       />
+      <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
+        <TimeReadout current={current} duration={duration} />
+        <MuteButton muted={props.muted} onToggle={props.onToggleMute} />
+        <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} />
+      </div>
     </div>
   );
 }
@@ -75,17 +79,19 @@ function MobilePlayer(props: {
         <Meta track={track} compact />
       </div>
       <SeekBar current={current} duration={duration} onSeek={props.onSeek} />
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2">
+      <div className="grid grid-cols-3 items-center gap-2">
         <TimeReadout current={current} duration={duration} />
-        <Transport
-          playing={playing}
-          onPrev={props.onPrev}
-          onNext={props.onNext}
-          onToggle={props.onToggle}
-          playSize={44}
-          hit={38}
-        />
-        <div className="flex shrink-0 items-center">
+        <div className="flex justify-center">
+          <Transport
+            playing={playing}
+            onPrev={props.onPrev}
+            onNext={props.onNext}
+            onToggle={props.onToggle}
+            playSize={44}
+            hit={38}
+          />
+        </div>
+        <div className="flex justify-end">
           <MuteButton muted={props.muted} onToggle={props.onToggleMute} hit={32} />
           <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} hit={32} />
         </div>
