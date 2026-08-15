@@ -29,7 +29,7 @@ export function TopBar() {
   }, [open]);
 
   return (
-    <header className="safe-t safe-l safe-r fixed z-30 flex items-start justify-between gap-3">
+    <header className="safe-t safe-l safe-r fixed z-30 flex items-center justify-between gap-3">
       <div className="flex min-w-0 flex-1 items-center justify-start">
         <Clock />
       </div>
