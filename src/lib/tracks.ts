@@ -65,7 +65,20 @@ export const playlists: Playlist[] = [
       { id: "t23", title: "Mauri Tyasai Ghumdaina", artist: "Asian Beat Vibes", film: "AI Remix Cover", year: 2026, duration: 283, videoId: "s9vyP31kuuI" },
     ],
   },
+  {
+    id: "rnac-boudha",
+    name: "RNAC - Boudha",
+    blurb: "Route playlist — coming soon",
+    tracks: [],
+  },
+  {
+    id: "kathmandu-gorkha-2",
+    name: "Kathmandu - Gorkha 2",
+    blurb: "Route playlist — coming soon",
+    tracks: [],
+  },
 ];
+
 
 
 export const formatTime = (s: number) => {
