@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Copyright } from "lucide-react";
 import { TopBar } from "@/components/TopBar";
 import { Player } from "@/components/player/Player";
 import { StationProvider } from "@/lib/station";
