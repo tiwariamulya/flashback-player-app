@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TopBar } from "@/components/TopBar";
 import { Player } from "@/components/player/Player";
 import { StationProvider } from "@/lib/station";
-import logoAsset from "@/assets/logo.webp.asset.json";
+import logoUrl from "@/assets/logo.webp";
 
 
 const SITE_URL = "https://driverdai.lovable.app/";
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: SITE_URL },
-      { rel: "preload", as: "image", href: logoAsset.url, fetchPriority: "high" },
+      { rel: "preload", as: "image", href: logoUrl, fetchPriority: "high" },
       {
         rel: "preload",
         as: "image",
@@ -77,7 +77,7 @@ function Index() {
 
         <header className="safe-t pointer-events-none mt-20 flex justify-center px-6 sm:mt-24">
           <img
-            src={logoAsset.url}
+            src={logoUrl}
             alt="Station logo"
             width={672}
             height={362}
