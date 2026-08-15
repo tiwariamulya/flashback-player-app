@@ -112,7 +112,7 @@ export function TopBar() {
                 <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span className="min-w-0">
-                <span className="block text-[10px] font-medium leading-tight">Recommend a route</span>
+                <span className="block text-[10px] font-medium leading-tight">Recommend a playlist</span>
                 <span className="block truncate text-[9px] leading-tight text-white/55">{CONTACT_EMAIL}</span>
               </span>
             </a>
