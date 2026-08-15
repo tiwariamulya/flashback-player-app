@@ -90,7 +90,7 @@ function Index() {
           />
         </header>
 
-        <div className="safe-px safe-pb z-20 mt-auto flex w-full max-w-3xl flex-col items-center justify-center pb-4">
+        <div className="safe-px safe-pb z-20 mt-auto flex w-full max-w-3xl flex-col items-center justify-center">
           <Player />
           <footer className="mt-3 text-center text-sm text-white/90">
             <Copyright className="inline-block size-4 align-text-bottom" /> 2026 Driver Dai | Developed by{" "}
