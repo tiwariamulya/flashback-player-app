@@ -29,12 +29,12 @@ export function TopBar() {
   }, [open]);
 
   return (
-    <>
-      <div className="safe-t safe-l fixed z-20">
+    <header className="safe-t safe-l safe-r fixed z-30 flex items-center justify-between gap-3">
+      <div className="flex min-w-0 flex-1 items-center justify-start">
         <Clock />
       </div>
 
-      <div className="safe-t fixed left-1/2 z-20 -translate-x-1/2">
+      <div className="flex flex-none items-center justify-center">
         <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.08] px-2.5 py-1 backdrop-blur-xl">
           <span className="size-1.5 rounded-full bg-accent-warm shadow-[0_0_8px_var(--accent)]" />
           <span className="text-[11px] tabular-nums tracking-wide text-white/80">
@@ -43,13 +43,13 @@ export function TopBar() {
         </div>
       </div>
 
-      <nav ref={wrapRef} className="safe-t safe-r fixed z-30 flex items-center">
+      <nav ref={wrapRef} className="flex min-w-0 flex-1 items-center justify-end">
         <button
           type="button"
           aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
-          className="flex max-w-[44vw] items-center gap-1 rounded-full border border-white/10 bg-gradient-to-b from-white/[0.15] to-white/[0.055] px-2 py-0.5 text-white backdrop-blur-xl transition-colors hover:bg-white/[0.14]"
+          className="flex max-w-full items-center gap-1 rounded-full border border-white/10 bg-gradient-to-b from-white/[0.15] to-white/[0.055] px-2 py-0.5 text-white backdrop-blur-xl transition-colors hover:bg-white/[0.14]"
         >
           <span className="truncate text-[11px] font-medium tracking-wide">
             {active.name}
@@ -66,7 +66,7 @@ export function TopBar() {
         {open && (
           <div
             role="menu"
-            className="absolute right-0 top-full mt-1.5 w-44 overflow-hidden rounded-lg border border-white/10 bg-black/60 p-1 backdrop-blur-3xl backdrop-saturate-[1.7] shadow-[0_16px_48px_-12px_rgba(0,0,0,0.8)]"
+            className="absolute right-4 top-full mt-1.5 w-44 overflow-hidden rounded-lg border border-white/10 bg-black/60 p-1 backdrop-blur-3xl backdrop-saturate-[1.7] shadow-[0_16px_48px_-12px_rgba(0,0,0,0.8)]"
           >
             {playlists.map((p) => {
               const empty = p.tracks.length === 0;
@@ -119,7 +119,7 @@ export function TopBar() {
           </div>
         )}
       </nav>
-    </>
+    </header>
   );
 }
 
