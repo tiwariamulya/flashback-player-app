@@ -373,3 +373,27 @@ export function SongList({
     </div>
   );
 }
+
+function IconHorn() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-4 fill-current">
+      <path d="M3 10v4h3l6 4V6L6 10H3zm13.5-3.3 1.2-1.6c1.9 1.4 3.1 3.6 3.1 6.1s-1.2 4.7-3.1 6.1l-1.2-1.6c1.4-1 2.3-2.7 2.3-4.5s-.9-3.5-2.3-4.5zm-1.6 2.2 1.2-1.6c1 .8 1.7 2 1.7 3.4s-.7 2.6-1.7 3.4l-1.2-1.6c.5-.4.9-1.1.9-1.8s-.4-1.4-.9-1.8z" />
+    </svg>
+  );
+}
+
+export function HornButton({
+  onHonk,
+  active,
+  hit = 34,
+}: {
+  onHonk: () => void;
+  active?: boolean;
+  hit?: number;
+}) {
+  return (
+    <IconButton label="Bus horn" onClick={onHonk} hit={hit} active={active}>
+      <IconHorn />
+    </IconButton>
+  );
+}
