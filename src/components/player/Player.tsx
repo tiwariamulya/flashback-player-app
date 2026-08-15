@@ -6,7 +6,6 @@ import { autoStartAt, inSilentTail, resolveStall, type StallState } from "@/lib/
 import {
   GLASS,
   Meta,
-  HornButton,
   MuteButton,
   PlaylistButton,
   SongList,
@@ -17,7 +16,7 @@ import {
 } from "./parts";
 import type { Track } from "@/lib/tracks";
 import { useStation } from "@/lib/station";
-import hornAsset from "@/assets/bus-horn.mp3.asset.json";
+
 
 
 function DesktopPlayer(props: {
