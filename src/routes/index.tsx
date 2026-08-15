@@ -3,6 +3,8 @@ import { TopBar } from "@/components/TopBar";
 import { Player } from "@/components/player/Player";
 import { StationProvider } from "@/lib/station";
 import logoUrl from "@/assets/logo.webp";
+import sceneWideUrl from "@/assets/scene-wide.webp";
+import sceneTallUrl from "@/assets/scene-tall.webp";
 
 
 const SITE_URL = "https://driverdai.lovable.app/";
@@ -48,14 +50,14 @@ export const Route = createFileRoute("/")({
       {
         rel: "preload",
         as: "image",
-        href: "/__l5e/assets-v1/18fa3a48-c300-443a-bd25-13a8686fbb70/scene-wide.webp",
+        href: sceneWideUrl,
         media: "(orientation: landscape)",
         fetchPriority: "high",
       },
       {
         rel: "preload",
         as: "image",
-        href: "/__l5e/assets-v1/7ae66946-e258-4f09-9bb4-c762d1a935ce/scene-tall.webp",
+        href: sceneTallUrl,
         media: "(orientation: portrait)",
         fetchPriority: "high",
       },
