@@ -339,6 +339,38 @@ export function Player() {
     playerRef.current?.seekTo(s, true);
   }, []);
 
+  /* keyboard media controls: space, arrows, M */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.matches("input, textarea, [contenteditable]")) return;
+
+      switch (e.key) {
+        case " ":
+        case "k":
+          e.preventDefault();
+          onToggle();
+          break;
+        case "ArrowRight":
+        case "l":
+          e.preventDefault();
+          next();
+          break;
+        case "ArrowLeft":
+        case "j":
+          e.preventDefault();
+          prev();
+          break;
+        case "m":
+          e.preventDefault();
+          onToggleMute();
+          break;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onToggle, next, prev, onToggleMute]);
+
   return (
     <div className="flex w-full max-w-3xl flex-col items-center gap-3">
 
