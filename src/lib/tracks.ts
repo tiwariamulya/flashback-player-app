@@ -68,9 +68,21 @@ export const playlists: Playlist[] = [
   {
     id: "rnac-boudha",
     name: "RNAC - Boudha",
-    blurb: "Route playlist — coming soon",
-    tracks: [],
+    blurb: "Selo & Tamang beats",
+    tracks: [
+      { id: "rb1", title: "Selfie Hanau Na", artist: "Bishwo Dong & Kamala Dong", film: "Selo Creation", year: 2025, duration: 428, videoId: "6xjaath8pXo" },
+      { id: "rb2", title: "Nuwakote Yo Jhilke Keto", artist: "Sanu KC & Ramkumar Khatiwada", film: "Single", year: 2024, duration: 538, videoId: "7VdbxsO1ePE" },
+      { id: "rb3", title: "Jado Badyo", artist: "Sanubabu Ghising & Kajal Tamang", film: "Fyafulla Nepal", year: 2024, duration: 631, videoId: "m0IHXfjjDRI" },
+      { id: "rb4", title: "Boudha Nayabasti", artist: "Amir Dong & Alina Rayamajhi", film: "Damphu Media", year: 2025, duration: 749, videoId: "Bc0LqKD53OE" },
+      { id: "rb5", title: "Paan Mitho Chuna Ma (Remix)", artist: "DJ Laxman G", film: "Remix", year: 2024, duration: 260, videoId: "51s_WU0D_8o" },
+      { id: "rb6", title: "Nagarana Ris 2", artist: "Ranjit Lama Waiba & Jitu Lopchan", film: "Fyafulla Nepal", year: 2024, duration: 567, videoId: "Vs5MGXt47yI" },
+      { id: "rb7", title: "Nagarana Ris", artist: "Yuddha Lama & Sanjana Gurung", film: "Tamang Selo", year: 2024, duration: 536, videoId: "WbrkQyyAXR0" },
+      { id: "rb8", title: "Sailo Ma Charghare", artist: "Bishwo Dong", film: "Lok Pop", year: 2024, duration: 289, videoId: "Q9keLcIpmgg" },
+      { id: "rb9", title: "Kalo Boko", artist: "Aashram Theeng & Anisha Tamang", film: "Yangi Dong", year: 2024, duration: 641, videoId: "h6CSq_KymVE" },
+      { id: "rb10", title: "Kavreli Samdi", artist: "Kosish Thokar & Jitu Lopchan", film: "Single", year: 2024, duration: 574, videoId: "ByoKi2E4ujg" },
+    ],
   },
+
   {
     id: "kathmandu-gorkha-2",
     name: "Kathmandu - Gorkha 2",
