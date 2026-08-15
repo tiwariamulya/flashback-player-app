@@ -374,29 +374,3 @@ export function SongList({
   );
 }
 
-function IconHorn() {
-  return (
-    <svg viewBox="0 0 24 24" className="size-4 fill-current">
-      <path d="M17.5 2.5 6 7H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h2l11.5 4.5c.55.22 1.13-.2 1.13-.79V3.29c0-.59-.58-1.01-1.13-.79z" />
-      <circle cx="5.5" cy="18.5" r="3" />
-      <path d="M19 5.5c1.5 1.5 2.5 3.5 2.5 5.5s-1 4-2.5 5.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M21 3c2 2 3 4.5 3 8s-1 6-3 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-export function HornButton({
-  onHonk,
-  active,
-  hit = 34,
-}: {
-  onHonk: () => void;
-  active?: boolean | undefined;
-  hit?: number;
-}) {
-  return (
-    <IconButton label="Bus horn" onClick={onHonk} hit={hit} active={active ?? false}>
-      <IconHorn />
-    </IconButton>
-  );
-}

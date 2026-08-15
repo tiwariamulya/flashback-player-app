@@ -113,7 +113,6 @@ export function Player() {
   const [ready, setReady] = useState(false);
   const [muted, setMuted] = useState(false);
   const [listOpen, setListOpen] = useState(false);
-  const [honking, setHonking] = useState(false);
   const [tracks, setTracks] = useState<Track[]>(() => (playlists[0]?.tracks ?? []));
 
   const playerRef = useRef<YTPlayer | null>(null);
@@ -279,48 +278,6 @@ export function Player() {
     setMuted((m) => !m);
   }, [muted]);
 
-  /* bus horn: 3s clip at full volume while the song ducks to 50% */
-  const hornRef = useRef<HTMLAudioElement | null>(null);
-  const hornTimerRef = useRef<number | null>(null);
-  const honkCooldownRef = useRef(false);
-  const prevVolRef = useRef(100);
-
-  useEffect(() => {
-    return () => {
-      if (hornTimerRef.current) window.clearTimeout(hornTimerRef.current);
-      hornRef.current?.pause();
-    };
-  }, []);
-
-  const onHonk = useCallback(() => {
-    if (honkCooldownRef.current) return;
-    honkCooldownRef.current = true;
-
-    const p = playerRef.current;
-    let audio = hornRef.current;
-    if (!audio) {
-      audio = new Audio(hornAsset.url);
-      audio.preload = "auto";
-      hornRef.current = audio;
-    }
-    audio.volume = 1;
-    audio.currentTime = 0;
-    void audio.play().catch(() => undefined);
-    setHonking(true);
-
-    if (hornTimerRef.current) window.clearTimeout(hornTimerRef.current);
-    else prevVolRef.current = p?.getVolume?.() ?? 100;
-    p?.setVolume?.(Math.round(prevVolRef.current * 0.5));
-
-    hornTimerRef.current = window.setTimeout(() => {
-      hornTimerRef.current = null;
-      honkCooldownRef.current = false;
-      audio?.pause();
-      setHonking(false);
-      playerRef.current?.setVolume?.(prevVolRef.current);
-    }, 3000);
-  }, []);
-
   const onPick = useCallback((i: number) => {
     setIdx(i);
     setListOpen(false);
@@ -397,8 +354,6 @@ export function Player() {
         onToggle={onToggle}
         muted={muted}
         onToggleMute={onToggleMute}
-        onHonk={onHonk}
-        honking={honking}
         listOpen={listOpen}
         onToggleList={() => setListOpen((o) => !o)}
       />
@@ -413,8 +368,6 @@ export function Player() {
         onToggle={onToggle}
         muted={muted}
         onToggleMute={onToggleMute}
-        onHonk={onHonk}
-        honking={honking}
         listOpen={listOpen}
         onToggleList={() => setListOpen((o) => !o)}
       />
