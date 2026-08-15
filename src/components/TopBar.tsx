@@ -49,7 +49,7 @@ export function TopBar() {
           aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
-          className="flex max-w-full items-center gap-1 rounded-full border border-white/10 bg-gradient-to-b from-white/[0.15] to-white/[0.055] px-2 py-0.5 text-white backdrop-blur-xl transition-colors hover:bg-white/[0.14]"
+          className="flex max-w-full items-center gap-1 rounded-full border border-white/10 bg-gradient-to-b from-white/[0.15] to-white/[0.055] px-2.5 py-1 text-white backdrop-blur-xl transition-colors hover:bg-white/[0.14]"
         >
           <span className="truncate text-[11px] font-medium tracking-wide">
             {active.name}
