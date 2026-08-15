@@ -30,8 +30,6 @@ function DesktopPlayer(props: {
   onToggle: () => void;
   muted: boolean;
   onToggleMute: () => void;
-  onHonk: () => void;
-  honking: boolean;
   listOpen: boolean;
   onToggleList: () => void;
 }) {
@@ -56,7 +54,6 @@ function DesktopPlayer(props: {
       <div className="flex shrink-0 items-center justify-end gap-2">
         <TimeReadout current={current} duration={duration} />
         <MuteButton muted={props.muted} onToggle={props.onToggleMute} />
-        <HornButton onHonk={props.onHonk} active={props.honking} />
         <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} />
       </div>
     </div>
@@ -74,8 +71,6 @@ function MobilePlayer(props: {
   onToggle: () => void;
   muted: boolean;
   onToggleMute: () => void;
-  onHonk: () => void;
-  honking: boolean;
   listOpen: boolean;
   onToggleList: () => void;
 }) {
@@ -101,7 +96,6 @@ function MobilePlayer(props: {
         </div>
         <div className="flex justify-end">
           <MuteButton muted={props.muted} onToggle={props.onToggleMute} hit={32} />
-          <HornButton onHonk={props.onHonk} active={props.honking} hit={32} />
           <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} hit={32} />
         </div>
       </div>
