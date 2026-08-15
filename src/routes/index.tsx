@@ -70,7 +70,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <StationProvider>
-      <main className="relative flex min-h-dvh flex-1 flex-col items-center justify-between overflow-hidden">
+      <main className="relative flex min-h-dvh flex-1 flex-col items-center overflow-hidden">
         <div className="hero-bg fixed inset-0 -z-20 bg-cover bg-center">
           <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/80" />
         </div>
@@ -90,15 +90,21 @@ function Index() {
           />
         </header>
 
-        <div className="safe-b safe-l safe-r fixed z-20 flex justify-center">
-          <div className="mx-auto flex w-full max-w-3xl justify-center px-4">
-            <Player />
-          </div>
+        <div className="safe-px safe-pb z-20 mt-auto flex w-full max-w-3xl flex-col items-center justify-center pb-4">
+          <Player />
+          <footer className="mt-3 text-center text-sm text-white/90">
+            <Copyright className="inline-block size-4 align-text-bottom" /> 2026 Driver Dai | Developed by{" "}
+            <a
+              href="https://tiwariamulya.com.np"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-yellow-400 transition-colors hover:text-yellow-300 hover:underline"
+            >
+              Amulya Tiwari
+            </a>
+          </footer>
         </div>
-
-        <div className="h-[420px] w-full shrink-0" aria-hidden="true" />
       </main>
     </StationProvider>
   );
-
 }
