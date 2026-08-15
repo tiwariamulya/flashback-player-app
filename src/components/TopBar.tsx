@@ -49,14 +49,14 @@ export function TopBar() {
           aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
-          className="flex max-w-[44vw] items-center gap-1.5 rounded-full border border-white/10 bg-gradient-to-b from-white/[0.15] to-white/[0.055] px-2.5 py-1 text-white backdrop-blur-xl transition-colors hover:bg-white/[0.14]"
+          className="flex max-w-[44vw] items-center gap-1 rounded-full border border-white/10 bg-gradient-to-b from-white/[0.15] to-white/[0.055] px-2 py-0.5 text-white backdrop-blur-xl transition-colors hover:bg-white/[0.14]"
         >
-          <span className="truncate text-sm font-medium tracking-wide">
+          <span className="truncate text-[11px] font-medium tracking-wide">
             {active.name}
           </span>
           <svg
             viewBox="0 0 12 12"
-            className={`size-2.5 shrink-0 opacity-70 transition-transform ${open ? "rotate-180" : ""}`}
+            className={`size-2 shrink-0 opacity-70 transition-transform ${open ? "rotate-180" : ""}`}
             aria-hidden="true"
           >
             <path d="m2.5 4.5 3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -66,7 +66,7 @@ export function TopBar() {
         {open && (
           <div
             role="menu"
-            className="absolute right-0 top-full mt-2 w-52 overflow-hidden rounded-xl border border-white/10 bg-black/60 p-1 backdrop-blur-3xl backdrop-saturate-[1.7] shadow-[0_16px_48px_-12px_rgba(0,0,0,0.8)]"
+            className="absolute right-0 top-full mt-1.5 w-44 overflow-hidden rounded-lg border border-white/10 bg-black/60 p-1 backdrop-blur-3xl backdrop-saturate-[1.7] shadow-[0_16px_48px_-12px_rgba(0,0,0,0.8)]"
           >
             {playlists.map((p) => {
               const empty = p.tracks.length === 0;
@@ -80,44 +80,42 @@ export function TopBar() {
                     setOpen(false);
                   }}
                   disabled={empty}
-                  className={`flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-left transition-colors ${
+                  className={`flex w-full items-center justify-between gap-2 rounded-md px-2 py-1 text-left transition-colors ${
                     empty ? "cursor-not-allowed opacity-50" : "hover:bg-white/10"
                   }`}
                 >
                   <span className="min-w-0">
-                    <span className="block truncate text-[12px] font-medium text-white">
+                    <span className="block truncate text-[10px] font-medium leading-tight text-white">
                       {p.name}
                     </span>
-                    <span className="block truncate text-[10px] text-white/55">
+                    <span className="block truncate text-[9px] leading-tight text-white/55">
                       {empty ? "Coming soon" : p.blurb}
                     </span>
                   </span>
                   {p.id === stationId && !empty && (
-                    <span className="size-1.5 shrink-0 rounded-full bg-accent-warm shadow-[0_0_8px_var(--accent)]" />
+                    <span className="size-1 shrink-0 rounded-full bg-accent-warm shadow-[0_0_6px_var(--accent)]" />
                   )}
                 </button>
               );
             })}
 
-
-            <div className="my-1 h-px bg-white/10" />
+            <div className="my-0.5 h-px bg-white/10" />
 
             <a
               role="menuitem"
               href={`mailto:${CONTACT_EMAIL}?subject=Playlist%20recommendation`}
-              className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-white/85 transition-colors hover:bg-white/10"
+              className="flex items-center gap-1.5 rounded-md px-2 py-1 text-white/85 transition-colors hover:bg-white/10"
               onClick={() => setOpen(false)}
             >
-              <svg viewBox="0 0 24 24" className="size-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+              <svg viewBox="0 0 24 24" className="size-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                 <rect x="3" y="5" width="18" height="14" rx="3" />
                 <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span className="min-w-0">
-                <span className="block text-[12px] font-medium">Recommend a route</span>
-                <span className="block truncate text-[10px] text-white/55">{CONTACT_EMAIL}</span>
+                <span className="block text-[10px] font-medium leading-tight">Recommend a route</span>
+                <span className="block truncate text-[9px] leading-tight text-white/55">{CONTACT_EMAIL}</span>
               </span>
             </a>
-
           </div>
         )}
       </nav>
