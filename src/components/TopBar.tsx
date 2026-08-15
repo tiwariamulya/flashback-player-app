@@ -105,18 +105,19 @@ export function TopBar() {
             <a
               role="menuitem"
               href={`mailto:${CONTACT_EMAIL}?subject=Playlist%20recommendation`}
-              className="flex items-center gap-2 rounded-xl px-3 py-2 text-white/85 transition-colors hover:bg-white/10"
+              className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-white/85 transition-colors hover:bg-white/10"
               onClick={() => setOpen(false)}
             >
-              <svg viewBox="0 0 24 24" className="size-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+              <svg viewBox="0 0 24 24" className="size-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                 <rect x="3" y="5" width="18" height="14" rx="3" />
                 <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span className="min-w-0">
-                <span className="block text-[13px] font-medium">Recommend a route</span>
-                <span className="block truncate text-[11px] text-white/55">{CONTACT_EMAIL}</span>
+                <span className="block text-[12px] font-medium">Recommend a route</span>
+                <span className="block truncate text-[10px] text-white/55">{CONTACT_EMAIL}</span>
               </span>
             </a>
+
           </div>
         )}
       </nav>
