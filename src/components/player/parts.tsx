@@ -388,11 +388,11 @@ export function HornButton({
   hit = 34,
 }: {
   onHonk: () => void;
-  active?: boolean;
+  active?: boolean | undefined;
   hit?: number;
 }) {
   return (
-    <IconButton label="Bus horn" onClick={onHonk} hit={hit} active={active}>
+    <IconButton label="Bus horn" onClick={onHonk} hit={hit} active={active ?? false}>
       <IconHorn />
     </IconButton>
   );
