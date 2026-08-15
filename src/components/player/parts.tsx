@@ -377,7 +377,10 @@ export function SongList({
 function IconHorn() {
   return (
     <svg viewBox="0 0 24 24" className="size-4 fill-current">
-      <path d="M3 10v4h3l6 4V6L6 10H3zm13.5-3.3 1.2-1.6c1.9 1.4 3.1 3.6 3.1 6.1s-1.2 4.7-3.1 6.1l-1.2-1.6c1.4-1 2.3-2.7 2.3-4.5s-.9-3.5-2.3-4.5zm-1.6 2.2 1.2-1.6c1 .8 1.7 2 1.7 3.4s-.7 2.6-1.7 3.4l-1.2-1.6c.5-.4.9-1.1.9-1.8s-.4-1.4-.9-1.8z" />
+      <path d="M17.5 2.5 6 7H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h2l11.5 4.5c.55.22 1.13-.2 1.13-.79V3.29c0-.59-.58-1.01-1.13-.79z" />
+      <circle cx="5.5" cy="18.5" r="3" />
+      <path d="M19 5.5c1.5 1.5 2.5 3.5 2.5 5.5s-1 4-2.5 5.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M21 3c2 2 3 4.5 3 8s-1 6-3 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
