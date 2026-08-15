@@ -1,11 +1,32 @@
+import { useEffect, useRef, useState } from "react";
 import { Clock } from "./Clock";
 import { useLiveListeners } from "@/hooks/useLiveListeners";
-
-const PLAYLIST_URL =
-  "https://youtube.com/playlist?list=PLS2fUsNYw8KQ&si=AWDwi_DFcKw9XktP";
+import { playlists } from "@/lib/tracks";
+import { CONTACT_EMAIL, useStation } from "@/lib/station";
 
 export function TopBar() {
   const count = useLiveListeners();
+  const { stationId, setStationId } = useStation();
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  const active = playlists.find((p) => p.id === stationId) ?? playlists[0]!;
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   return (
     <>
@@ -22,34 +43,83 @@ export function TopBar() {
         </div>
       </div>
 
-      <nav className="safe-t safe-r fixed z-20 flex items-center">
-        <a
-          href={PLAYLIST_URL}
-          target="_blank"
-          rel="noreferrer noopener"
-          aria-label="Open the playlist on YouTube Music"
-          className="group flex items-center gap-2 rounded-full px-1 py-1 text-white transition-opacity hover:opacity-80"
+      <nav ref={wrapRef} className="safe-t safe-r fixed z-30 flex items-center">
+        <button
+          type="button"
+          aria-haspopup="menu"
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+          className="flex max-w-[52vw] items-center gap-2 rounded-full border border-white/10 bg-gradient-to-b from-white/[0.15] to-white/[0.055] px-3 py-1.5 text-white backdrop-blur-xl transition-colors hover:bg-white/[0.14]"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" viewBox="0 0 176 176" className="size-6 shrink-0" aria-hidden="true">
-            <circle cx="88" cy="88" r="88" fill="red" />
-            <path fill="#FFF" d="M88 46c23.1 0 42 18.8 42 42s-18.8 42-42 42-42-18.8-42-42 18.9-42 42-42m0-4c-25.4 0-46 20.6-46 46s20.6 46 46 46 46-20.6 46-46-20.6-46-46-46" />
-            <path fill="#FFF" d="m72 111 39-24-39-22z" />
-          </svg>
-          <span className="hidden text-[13px] font-semibold tracking-tight sm:inline">
-            YT Music
+          <span className="truncate text-[13px] font-semibold tracking-tight">
+            {active.name}
           </span>
-          <svg viewBox="0 0 12 12" className="hidden size-3 opacity-70 sm:block" aria-hidden="true">
-            <path
-              d="M3 9 9 3M4.2 3H9v4.8"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg
+            viewBox="0 0 12 12"
+            className={`size-3 shrink-0 opacity-70 transition-transform ${open ? "rotate-180" : ""}`}
+            aria-hidden="true"
+          >
+            <path d="m2.5 4.5 3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </a>
+        </button>
+
+        {open && (
+          <div
+            role="menu"
+            className="absolute right-0 top-full mt-2 w-60 overflow-hidden rounded-2xl border border-white/10 bg-black/60 p-1 backdrop-blur-3xl backdrop-saturate-[1.7] shadow-[0_16px_48px_-12px_rgba(0,0,0,0.8)]"
+          >
+            {playlists.map((p) => {
+              const empty = p.tracks.length === 0;
+              return (
+                <button
+                  key={p.id}
+                  role="menuitem"
+                  type="button"
+                  onClick={() => {
+                    if (!empty) setStationId(p.id);
+                    setOpen(false);
+                  }}
+                  disabled={empty}
+                  className={`flex w-full items-center justify-between gap-2 rounded-xl px-3 py-2 text-left transition-colors ${
+                    empty ? "cursor-not-allowed opacity-50" : "hover:bg-white/10"
+                  }`}
+                >
+                  <span className="min-w-0">
+                    <span className="block truncate text-[13px] font-medium text-white">
+                      {p.name}
+                    </span>
+                    <span className="block truncate text-[11px] text-white/55">
+                      {empty ? "Coming soon" : p.blurb}
+                    </span>
+                  </span>
+                  {p.id === stationId && !empty && (
+                    <span className="size-1.5 shrink-0 rounded-full bg-accent-warm shadow-[0_0_8px_var(--accent)]" />
+                  )}
+                </button>
+              );
+            })}
+
+            <div className="my-1 h-px bg-white/10" />
+
+            <a
+              role="menuitem"
+              href={`mailto:${CONTACT_EMAIL}?subject=Playlist%20recommendation`}
+              className="flex items-center gap-2 rounded-xl px-3 py-2 text-white/85 transition-colors hover:bg-white/10"
+              onClick={() => setOpen(false)}
+            >
+              <svg viewBox="0 0 24 24" className="size-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="3" />
+                <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="min-w-0">
+                <span className="block text-[13px] font-medium">Recommend a route</span>
+                <span className="block truncate text-[11px] text-white/55">{CONTACT_EMAIL}</span>
+              </span>
+            </a>
+          </div>
+        )}
       </nav>
     </>
   );
 }
+
