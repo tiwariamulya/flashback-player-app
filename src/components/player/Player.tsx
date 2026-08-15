@@ -6,6 +6,7 @@ import { autoStartAt, inSilentTail, resolveStall, type StallState } from "@/lib/
 import {
   GLASS,
   Meta,
+  HornButton,
   MuteButton,
   PlaylistButton,
   SongList,
@@ -15,6 +16,7 @@ import {
   Vinyl,
 } from "./parts";
 import type { Track } from "@/lib/tracks";
+import hornAsset from "@/assets/bus-horn.mp3.asset.json";
 
 function DesktopPlayer(props: {
   track: Track;
@@ -27,6 +29,8 @@ function DesktopPlayer(props: {
   onToggle: () => void;
   muted: boolean;
   onToggleMute: () => void;
+  onHonk: () => void;
+  honking: boolean;
   listOpen: boolean;
   onToggleList: () => void;
 }) {
@@ -51,6 +55,7 @@ function DesktopPlayer(props: {
       <div className="flex shrink-0 items-center justify-end gap-2">
         <TimeReadout current={current} duration={duration} />
         <MuteButton muted={props.muted} onToggle={props.onToggleMute} />
+        <HornButton onHonk={props.onHonk} active={props.honking} />
         <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} />
       </div>
     </div>
@@ -68,6 +73,8 @@ function MobilePlayer(props: {
   onToggle: () => void;
   muted: boolean;
   onToggleMute: () => void;
+  onHonk: () => void;
+  honking: boolean;
   listOpen: boolean;
   onToggleList: () => void;
 }) {
@@ -93,6 +100,7 @@ function MobilePlayer(props: {
         </div>
         <div className="flex justify-end">
           <MuteButton muted={props.muted} onToggle={props.onToggleMute} hit={32} />
+          <HornButton onHonk={props.onHonk} active={props.honking} hit={32} />
           <PlaylistButton open={props.listOpen} onToggle={props.onToggleList} hit={32} />
         </div>
       </div>
@@ -109,6 +117,7 @@ export function Player() {
   const [ready, setReady] = useState(false);
   const [muted, setMuted] = useState(false);
   const [listOpen, setListOpen] = useState(false);
+  const [honking, setHonking] = useState(false);
   const [tracks, setTracks] = useState<Track[]>(() => (playlists[0]?.tracks ?? []));
 
   const playerRef = useRef<YTPlayer | null>(null);
@@ -271,6 +280,43 @@ export function Player() {
     setMuted((m) => !m);
   }, [muted]);
 
+  /* bus horn: 3s clip at full volume while the song ducks to 50% */
+  const hornRef = useRef<HTMLAudioElement | null>(null);
+  const hornTimerRef = useRef<number | null>(null);
+  const prevVolRef = useRef(100);
+
+  useEffect(() => {
+    return () => {
+      if (hornTimerRef.current) window.clearTimeout(hornTimerRef.current);
+      hornRef.current?.pause();
+    };
+  }, []);
+
+  const onHonk = useCallback(() => {
+    const p = playerRef.current;
+    let audio = hornRef.current;
+    if (!audio) {
+      audio = new Audio(hornAsset.url);
+      audio.preload = "auto";
+      hornRef.current = audio;
+    }
+    audio.volume = 1;
+    audio.currentTime = 0;
+    void audio.play().catch(() => undefined);
+    setHonking(true);
+
+    if (hornTimerRef.current) window.clearTimeout(hornTimerRef.current);
+    else prevVolRef.current = p?.getVolume?.() ?? 100;
+    p?.setVolume?.(Math.round(prevVolRef.current * 0.5));
+
+    hornTimerRef.current = window.setTimeout(() => {
+      hornTimerRef.current = null;
+      audio?.pause();
+      setHonking(false);
+      playerRef.current?.setVolume?.(prevVolRef.current);
+    }, 3000);
+  }, []);
+
   const onPick = useCallback((i: number) => {
     setIdx(i);
     setListOpen(false);
@@ -315,6 +361,8 @@ export function Player() {
         onToggle={onToggle}
         muted={muted}
         onToggleMute={onToggleMute}
+        onHonk={onHonk}
+        honking={honking}
         listOpen={listOpen}
         onToggleList={() => setListOpen((o) => !o)}
       />
@@ -329,6 +377,8 @@ export function Player() {
         onToggle={onToggle}
         muted={muted}
         onToggleMute={onToggleMute}
+        onHonk={onHonk}
+        honking={honking}
         listOpen={listOpen}
         onToggleList={() => setListOpen((o) => !o)}
       />
