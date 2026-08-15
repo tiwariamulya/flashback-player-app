@@ -84,10 +84,23 @@ export const playlists: Playlist[] = [
   },
 
   {
-    id: "kathmandu-gorkha-2",
-    name: "Kathmandu - Gorkha 2",
-    blurb: "Route playlist — coming soon",
-    tracks: [],
+    id: "ktm-gorkha",
+    name: "KTM - Gorkha",
+    blurb: "Thado bhaka & Gorkhali lok",
+    tracks: [
+      { id: "kg1", title: "Gorkhako Bhachchek", artist: "Shanti Shree Pariyar & Rayan Bashyal", film: "Lok Dohori", year: 2025, duration: 1037, videoId: "HmCVv8FYpcg" },
+      { id: "kg2", title: "Gorkha Melaima", artist: "Dipesh Lama & Shreya Rai", film: "Single", year: 2025, duration: 769, videoId: "9qp5l8R09ys" },
+      { id: "kg3", title: "Gorkha Siranchowk Kerabarima", artist: "Shanti Shree Pariyar & Chij Gurung", film: "Namaste Gorkha", year: 2025, duration: 1104, videoId: "Rmg0uH2V5hE" },
+      { id: "kg4", title: "Gorkha Ghara Kathmandu Dera", artist: "Nirjala & Rabin Lamichhane", film: "Nirjala Rodhi Ghar", year: 2025, duration: 804, videoId: "zdeiUg1LvRQ" },
+      { id: "kg5", title: "Gorkha Jane Muglinko Bato", artist: "Shital Gurung & Shanti Shree Pariyar", film: "Lok Dohori", year: 2025, duration: 589, videoId: "6y9Pex9wSnY" },
+      { id: "kg6", title: "Hawa Sarara", artist: "Chij Gurung & Chija Tamang", film: "Lok Dohori", year: 2024, duration: 575, videoId: "9XPY_4EMPlI" },
+      { id: "kg7", title: "Gorkha Manakamana", artist: "Biru Lama & Binita Gurung", film: "Him Samjhauta", year: 2020, duration: 401, videoId: "7k5t09Wkhqw" },
+      { id: "kg8", title: "Maulik Gorkhali Thado Bhaka", artist: "Chija Tamang & Santosh Tamang", film: "Thado Bhaka", year: 2025, duration: 1906, videoId: "-cThUqbQFCY" },
+      { id: "kg9", title: "Maulik Gorkhali Thado Bhaka (Raju Pariyar)", artist: "Raju Pariyar & Chija Tamang", film: "Dip Films", year: 2025, duration: 1353, videoId: "KqJdHD5VZEA" },
+      { id: "kg10", title: "Gorkhali Thado Bhaka", artist: "Chij Gurung & Chija Tamang", film: "Thado Bhaka", year: 2024, duration: 1603, videoId: "OmS3X13IiJg" },
+      { id: "kg11", title: "Gorkha Geet", artist: "Gorkha Municipality", film: "Single", year: 2023, duration: 396, videoId: "bwmDSkDDJtU" },
+      { id: "kg12", title: "Gorkha Bajar", artist: "Krishna Gurung & Bhimkala Gurung", film: "Kauda Chutka", year: 2020, duration: 625, videoId: "2GiG2t1JvFU" },
+    ],
   },
 ];
 
