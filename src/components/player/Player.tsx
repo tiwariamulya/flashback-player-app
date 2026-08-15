@@ -16,7 +16,9 @@ import {
   Vinyl,
 } from "./parts";
 import type { Track } from "@/lib/tracks";
+import { useStation } from "@/lib/station";
 import hornAsset from "@/assets/bus-horn.mp3.asset.json";
+
 
 function DesktopPlayer(props: {
   track: Track;
@@ -109,7 +111,8 @@ function MobilePlayer(props: {
 }
 
 export function Player() {
-  const [pl, setPl] = useState(0);
+  const { stationId } = useStation();
+  const pl = Math.max(0, playlists.findIndex((p) => p.id === stationId));
   const [idx, setIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -132,7 +135,7 @@ export function Player() {
   const stallRef = useRef<StallState>({ lastTime: -1, since: 0 });
 
   const list = playlists[pl] ?? playlists[0]!;
-  const track = tracks[idx] ?? list.tracks[0]!;
+  const track = tracks[idx] ?? playlists[0]!.tracks[0]!;
   const hasVideo = Boolean(track.videoId);
   const trackRef = useRef(track);
   trackRef.current = track;
@@ -141,9 +144,12 @@ export function Player() {
 
   /* shuffle the running order after hydration so every visit differs */
   useEffect(() => {
-    setTracks(shuffle((playlists[pl] ?? playlists[0]!).tracks));
+    const source = list.tracks.length ? list.tracks : playlists[0]!.tracks;
+    setTracks(shuffle(source));
     setIdx(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pl]);
+
 
   const countRef = useRef(1);
   countRef.current = Math.max(1, tracks.length);

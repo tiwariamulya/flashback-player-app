@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TopBar } from "@/components/TopBar";
 import { Player } from "@/components/player/Player";
+import { StationProvider } from "@/lib/station";
 import logoAsset from "@/assets/logo.webp.asset.json";
+
 
 const SITE_URL = "https://driverdai.lovable.app/";
 const OG_IMAGE =
