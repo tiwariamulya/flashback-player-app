@@ -77,12 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Driver Dai" },
-      { name: "description", content: "Driver Dai — a nonstop Nepali music radio that shuffles hand-picked songs the moment you arrive." },
+      { title: "Driver Dai — Nonstop Nepali Music Radio" },
+      { name: "description", content: "Driver Dai plays nonstop Nepali songs — hand-picked classics and road-trip favourites, shuffled fresh every visit. Press play, no signup." },
       { name: "author", content: "Driver Dai" },
       { property: "og:site_name", content: "Driver Dai" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Driver Dai — Nonstop Nepali Music Radio" },
+      { name: "twitter:title", content: "Driver Dai — Nonstop Nepali Music Radio" },
+      { property: "og:description", content: "Driver Dai plays nonstop Nepali songs — hand-picked classics and road-trip favourites, shuffled fresh every visit. Press play, no signup." },
+      { name: "twitter:description", content: "Driver Dai plays nonstop Nepali songs — hand-picked classics and road-trip favourites, shuffled fresh every visit. Press play, no signup." },
+      { property: "og:image", content: "https://driverdai.lovable.app/__l5e/assets-v1/4a6c2553-7e4a-46e2-8d62-8ecb72a19022/driver-dai-og.png" },
+      { name: "twitter:image", content: "https://driverdai.lovable.app/__l5e/assets-v1/4a6c2553-7e4a-46e2-8d62-8ecb72a19022/driver-dai-og.png" },
     ],
     links: [
       {
