@@ -283,6 +283,7 @@ export function Player() {
   /* bus horn: 3s clip at full volume while the song ducks to 50% */
   const hornRef = useRef<HTMLAudioElement | null>(null);
   const hornTimerRef = useRef<number | null>(null);
+  const honkCooldownRef = useRef(false);
   const prevVolRef = useRef(100);
 
   useEffect(() => {
@@ -293,6 +294,9 @@ export function Player() {
   }, []);
 
   const onHonk = useCallback(() => {
+    if (honkCooldownRef.current) return;
+    honkCooldownRef.current = true;
+
     const p = playerRef.current;
     let audio = hornRef.current;
     if (!audio) {
@@ -311,6 +315,7 @@ export function Player() {
 
     hornTimerRef.current = window.setTimeout(() => {
       hornTimerRef.current = null;
+      honkCooldownRef.current = false;
       audio?.pause();
       setHonking(false);
       playerRef.current?.setVolume?.(prevVolRef.current);
