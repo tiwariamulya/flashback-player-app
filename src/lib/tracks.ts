@@ -35,10 +35,11 @@ export type Playlist = {
  */
 export const playlists: Playlist[] = [
   {
-    id: "radio",
-    name: "Radio",
+    id: "all-nepal",
+    name: "All Nepal",
     blurb: "On loop",
     tracks: [
+
       { id: "t1", title: "Masterai Banera", artist: "Trisana Music", film: "DJ Cover", year: 2026, duration: 596, videoId: "yJJH_wDo7RI" },
       { id: "t2", title: "Driver Ma Mailo", artist: "Badal Thapa", film: "Single", year: 2010, duration: 263, videoId: "T88PAIFtVIk" },
       { id: "t3", title: "Sailo Ma Charghare", artist: "Bishwo Dong", film: "Single", year: 2025, duration: 382, videoId: "xIZISD1JqoQ" },
